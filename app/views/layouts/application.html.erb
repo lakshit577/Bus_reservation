@@ -11,6 +11,25 @@
   </head>
 
   <body>
+  <nav>
+  <ul>
+  <% unless on_auth_page? %>
+    <% if user_signed_in? %>
+      
+      <li><%=button_to "log_out",destroy_user_session_path,method: :delete%></li>
+    <% else %>
+      <li><%=link_to "log_in",new_user_session_path%></li><br>
+    <% end %>
+    <%end%>
+  </ul>
+</nav>
+
+
+
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
     <%= yield %>
   </body>
 </html>
