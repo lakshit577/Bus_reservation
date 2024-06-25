@@ -1,0 +1,40 @@
+<!-- app/views/buses/index.html.erb -->
+
+<h1>List of Buses</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Bus Name</th>
+      <th>Bus Number</th>
+      <th>Bus Type</th>
+      <th>Price of a Single Seat</th>
+      <th>Departure Date/Time</th>
+      <th>Departure Location</th>
+      <th>Arrival Date/Time</th>
+      <th>Arrival Location</th>
+      <th>Owned By</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% @buses.each do |bus| %>
+      <tr>
+        <td><%= bus.bus_name %></td>
+        <td><%= bus.bus_number %></td>
+        <td><%= bus.bus_type %></td>
+        <td><%= bus.price_of_a_single_seat %></td>
+        <td><%= bus.departure_datetime.strftime('%Y-%m-%d %H:%M') if bus.departure_datetime %></td>
+        <td><%= bus.departure_location %></td>
+        <td><%= bus.arrival_datetime.strftime('%Y-%m-%d %H:%M') if bus.arrival_datetime %></td>
+        <td><%= bus.arrival_location %></td>
+        <td><%= bus.user.name %></td>
+        <td><%=link_to "book seat"%></td>
+        
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
