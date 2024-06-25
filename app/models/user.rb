@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 
+  has_many :buses
   enum role: [:customer, :bus_owner]
   # after_initialize :set_default_role, :if => :new_record?
 
@@ -8,3 +9,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end
+
+
+

@@ -1,0 +1,63 @@
+<h1>New Bus</h1>
+
+<%= form_with(model: @bus, local: true) do |form| %>
+  <% if @bus.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bus.errors.count, "error") %> prohibited this bus from being saved:</h2>
+      <ul>
+        <% @bus.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :bus_name %>
+    <%= form.text_field :bus_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bus_number %>
+    <%= form.number_field :bus_number %>
+  </div>
+
+  <div class="field">
+  <%= form.label :bus_type %>
+  <%= form.select :bus_type, Bus.bus_types.keys.map { |type| type } %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :price_of_a_single_seat %>
+    <%= form.number_field :price_of_a_single_seat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :departure_datetime %>
+    <%= form.datetime_select :departure_datetime %>
+  </div>
+
+  <div class="field">
+    <%= form.label :departure_location %>
+    <%= form.text_field :departure_location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :arrival_datetime %>
+    <%= form.datetime_select :arrival_datetime %>
+  </div>
+
+  <div class="field">
+    <%= form.label :arrival_location %>
+    <%= form.select :arrival_location, options_for_select(['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Ahmedabad', 'Chennai', 'Kolkata', 'Pune', 'Jaipur', 'Surat']) %>
+  </div>
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
