@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_25_091412) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_050432) do
   create_table "buses", force: :cascade do |t|
     t.string "bus_name"
     t.integer "bus_number"
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_091412) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "available_seats", default: 50
     t.index ["user_id"], name: "index_buses_on_user_id"
   end
 

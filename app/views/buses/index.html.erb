@@ -8,6 +8,7 @@
       <th>Bus Name</th>
       <th>Bus Number</th>
       <th>Bus Type</th>
+      <th>Availabe Seats</th>
       <th>Price of a Single Seat</th>
       <th>Departure Date/Time</th>
       <th>Departure Location</th>
@@ -23,6 +24,7 @@
         <td><%= bus.bus_name %></td>
         <td><%= bus.bus_number %></td>
         <td><%= bus.bus_type %></td>
+        <td><%= bus.available_seats %></td>
         <td><%= bus.price_of_a_single_seat %></td>
         <td><%= bus.departure_datetime.strftime('%Y-%m-%d %H:%M') if bus.departure_datetime %></td>
         <td><%= bus.departure_location %></td>
@@ -31,10 +33,7 @@
         <td><%= bus.user.name %></td>
         <td><%=link_to "book seat"%></td>
         
-        
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
