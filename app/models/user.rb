@@ -3,12 +3,11 @@ class User < ApplicationRecord
 
     # Validations
     validates :email, presence: true, uniqueness: true
-    # validates :password, presence: true, length: { minimum: 6 }
     validates :name, presence: true
     validates :contact, presence: true, length: { minimum: 10, maximum: 15 }
   
 
-  has_many :buses
+  has_many :buses, dependent: :destroy
   enum role: [:customer, :bus_owner]
   # after_initialize :set_default_role, :if => :new_record?
 

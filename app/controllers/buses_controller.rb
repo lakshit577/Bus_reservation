@@ -13,13 +13,15 @@ class BusesController < ApplicationController
         @user=current_user
         @bus = Bus.new 
     end
+
     def create
+        # debugger
         @bus = Bus.new(permit_params)
         @bus.user = current_user
         if @bus.save
             redirect_to bus_owner_home_path
         else
-            render :new
+            render :new , status: :unprocessable_entity
         end
     end
 

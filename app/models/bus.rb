@@ -1,7 +1,6 @@
 class Bus < ApplicationRecord
-
     belongs_to :user
-    has_many :seats
+    has_many :seats , dependent: :destroy
 
      # Validations
     validates :bus_name, presence: true
@@ -29,5 +28,4 @@ class Bus < ApplicationRecord
       seats.create(seat_number: i + 1)
     end
   end
-
 end
