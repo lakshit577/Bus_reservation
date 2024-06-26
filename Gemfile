@@ -69,3 +69,8 @@ end
 gem "devise", "~> 4.9"
 
 gem 'city-state'
+
+gem 'bootstrap'
+gem 'sassc-rails'
+# gem 'dartsass-sprockets'
+

@@ -8,9 +8,17 @@ class SeatsController < ApplicationController
         end
     end
 
-    def create
-        
-    end
+    # def create
+    #     @seats = params[:bus][:seats_attributes].values.map do |seat_params|
+    #       @bus.seats.build(seat_params)
+    #     end
+    
+    #     if @bus.save
+    #       redirect_to @bus, notice: 'Seats were successfully selected.'
+    #     else
+    #       render :new
+    #     end
+    #   end
 
     private
     def set_bus 

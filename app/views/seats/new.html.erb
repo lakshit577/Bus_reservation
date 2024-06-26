@@ -1,29 +1,4 @@
-<!-- app/views/seats/new.html.erb -->
-
 <h1>Select Seats</h1>
+<%= render 'seat' %>
 
-<%= form_with(model: @bus, url: bus_seats_path(@bus), local: true) do |form| %>
-  <% if @bus.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@bus.errors.count, "error") %> prohibited this bus from being saved:</h2>
-      <ul>
-        <% @bus.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <% @seats.each_with_index do |seat, index| %>
-    <div class="field">
-      <%= form.fields_for :seats, seat do |seat_form| %>
-        <%= seat_form.check_box :seat_number, {}, "seat_#{index + 1}" %>
-        <%= seat_form.label "seat_#{index + 1}", "Seat #{index + 1}" %>
-      <% end %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit "Save Seats" %>
-  </div>
-<% end %>
