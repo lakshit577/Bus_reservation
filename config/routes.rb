@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'bus_owner', to: 'home#bus_owner_index', as: :bus_owner_home
   resources :buses
+  resources :buses do
+    resources :seats
+  end
   
   # resources :bus_owners  
   # Defines the root path route ("/")

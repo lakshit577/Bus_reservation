@@ -34,7 +34,7 @@ class BusesController < ApplicationController
     private
 
     def permit_params
-        params.require(:bus).permit(:bus_name, :bus_number, :bus_type, :availabe_seats, :price_of_a_single_seat, :departure_datetime, :departure_location, :arrival_datetime, :arrival_location)
+        params.require(:bus).permit(:bus_name, :bus_number, :bus_type, :number_of_seats, :price_of_a_single_seat, :departure_datetime, :departure_location, :arrival_datetime, :arrival_location)
     end
 
     def if_user_is_bus_owner

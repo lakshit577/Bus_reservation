@@ -27,6 +27,11 @@
   <%= form.select :bus_type, Bus.bus_types.keys.map { |type| type } %>
   </div>
 
+  <div class="field">
+  <%= form.label :number_of_seats%>
+  <%= form.number_field :number_of_seats%>
+  </div>
+
 
   <div class="field">
     <%= form.label :price_of_a_single_seat %>

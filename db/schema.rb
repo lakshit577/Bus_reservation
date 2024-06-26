@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_050432) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_064957) do
   create_table "buses", force: :cascade do |t|
     t.string "bus_name"
     t.integer "bus_number"
@@ -23,8 +23,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_050432) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "available_seats", default: 50
+    t.integer "number_of_seats"
     t.index ["user_id"], name: "index_buses_on_user_id"
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.integer "bus_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "seat_number"
+    t.index ["bus_id"], name: "index_seats_on_bus_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,4 +51,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_050432) do
   end
 
   add_foreign_key "buses", "users"
+  add_foreign_key "seats", "buses"
 end
