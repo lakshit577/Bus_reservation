@@ -19,13 +19,14 @@ class Bus < ApplicationRecord
     accepts_nested_attributes_for :seats
     # validates :number_of_seats, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-    after_create :create_seats
+    # after_create :create_seats
 
     private
 
-  def create_seats
-    self.number_of_seats.times do |i|
-      seats.create(seat_number: i + 1)
-    end
-  end
+  # def create_seats
+  #   self.number_of_seats.times do |i|
+  #     # debugger
+  #     seats.create(seat_number: i + 1)
+  #   end
+  # end
 end

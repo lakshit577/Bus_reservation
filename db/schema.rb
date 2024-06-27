@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_064957) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_27_065454) do
   create_table "buses", force: :cascade do |t|
     t.string "bus_name"
     t.integer "bus_number"
@@ -27,11 +27,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_064957) do
     t.index ["user_id"], name: "index_buses_on_user_id"
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "bus_id", null: false
+    t.integer "seat_id", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.datetime "booking_date", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bus_id"], name: "index_reservations_on_bus_id"
+    t.index ["seat_id"], name: "index_reservations_on_seat_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
   create_table "seats", force: :cascade do |t|
     t.integer "bus_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "seat_number"
+    t.boolean "selected", default: false
     t.index ["bus_id"], name: "index_seats_on_bus_id"
   end
 
@@ -51,5 +65,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_064957) do
   end
 
   add_foreign_key "buses", "users"
+  add_foreign_key "reservations", "buses"
+  add_foreign_key "reservations", "seats"
+  add_foreign_key "reservations", "users"
   add_foreign_key "seats", "buses"
 end

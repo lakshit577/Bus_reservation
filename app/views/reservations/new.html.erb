@@ -1,0 +1,59 @@
+<!-- app/views/reservations/new.html.erb -->
+
+<h1>Confirm Reservation</h1>
+
+<%= form_with model: @reservation, url: reservations_path, method: :post do |form| %>
+  <% if @reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+      <ul>
+        <% @reservation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_name %>
+    <%= form.text_field :user_name, value: current_user.name, disabled: true %>
+  </div>
+
+  
+
+  <div class="field">
+    <%= form.label :bus_name %>
+    <%= form.text_field :bus_name, value: @bus.bus_name, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bus_number %>
+    <%= form.text_field :bus_number, value: @bus.bus_number, disabled: true %>
+  </div>
+
+    <%@seat.each do |s|%>
+    <div class="field">
+        <%= form.label :selected_seats, ' selected seat no' %>
+        <%= form.number_field :selected_seats,value: s.seat_number, disabled: true %>
+        
+    </div>
+    <%end%>
+
+  <div class="field">
+    <%= form.label :departure_location %>
+    <%= form.text_field :departure_location, value: @bus.departure_location, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :arrival_location %>
+    <%= form.text_field :arrival_location, value: @bus.arrival_location, disabled: true %>
+  </div>
+
+  <%= form.hidden_field :booking_date, value: Time.current %>
+  <%= form.hidden_field :departure_datetime, value: @bus.departure_datetime %>
+  <%= form.hidden_field :arrival_datetime, value: @bus.arrival_datetime %>
+
+  <div class="actions">
+    <%= form.submit "Confirm Reservation", class: "btn btn-primary" %>
+  </div>
+<% end %>

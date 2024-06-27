@@ -1,4 +1,48 @@
 <h1>Select Seats</h1>
-<%= render 'seat' %>
 
+<%= form_with url: bus_seats_path(@bus), local: true do |form| %>
+  <% if @bus.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bus.errors.count, "error") %> prohibited this bus from being saved:</h2>
+      <ul>
+        <% @bus.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
+  <div class="row">
+    <%# <%debugger%> 
+    <% @seats.each do |seat| %>
+      <div class="col-md-2 mb-3">
+        <div class="seat-checkbox">
+          <%= check_box_tag "bus[seat_ids][]", seat.id, false, id: "seat_#{seat.id}", class: "seat-checkbox-input" %>
+          <%= label_tag "seat_#{seat.id}", "Seat #{seat.seat_number}", class: "seat-checkbox-label" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Save Seats", class: "btn btn-danger" %>
+  </div>
+<% end %>
+
+<style>
+  .seat-checkbox-label {
+    cursor: pointer;
+  }
+
+  .seat-checkbox {
+    background-color: lightgreen;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .seat-checkbox-input:checked + .seat-checkbox-label {
+    background-color: #f44336; /* Red color when checked */
+  }
+</style>
