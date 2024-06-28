@@ -31,13 +31,15 @@
     <%= form.text_field :bus_number, value: @bus.bus_number, disabled: true %>
   </div>
 
-    <%@seat.each do |s|%>
-    <div class="field">
-        <%= form.label :selected_seats, ' selected seat no' %>
-        <%= form.number_field :selected_seats,value: s.seat_number, disabled: true %>
-        
-    </div>
-    <%end%>
+  <% @seat.each do |s| %>
+    <% if current_user.id == s.user_id %>
+      <div class="field">
+        <%= form.label :selected_seats, 'Selected seat number' %>
+        <%= form.number_field :selected_seats, value: s.seat_number, disabled: true %>
+      </div>
+    <% end %>
+  <% end %>
+  
 
   <div class="field">
     <%= form.label :departure_location %>

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-  registrations: 'users/registrations'
+  registrations: 'users/registrations',sessions: 'users/sessions' 
 }
 
   get 'home/index'
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :buses do
     resources :seats
     resources :reservations
+    # resources :seat_reservations#, only: [:create, :destroy]   
   end
   resources :reservations
   

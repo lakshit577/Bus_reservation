@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_27_065454) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_27_200957) do
   create_table "buses", force: :cascade do |t|
     t.string "bus_name"
     t.integer "bus_number"
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_065454) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "no_of_available_seats", default: 50
     t.integer "number_of_seats"
     t.index ["user_id"], name: "index_buses_on_user_id"
   end
@@ -40,13 +41,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_065454) do
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
+  create_table "seat_reservations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "seat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["seat_id"], name: "index_seat_reservations_on_seat_id"
+    t.index ["user_id"], name: "index_seat_reservations_on_user_id"
+  end
+
   create_table "seats", force: :cascade do |t|
     t.integer "bus_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "seat_number"
     t.boolean "selected", default: false
+    t.integer "user_id"
     t.index ["bus_id"], name: "index_seats_on_bus_id"
+    t.index ["user_id"], name: "index_seats_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -68,5 +80,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_065454) do
   add_foreign_key "reservations", "buses"
   add_foreign_key "reservations", "seats"
   add_foreign_key "reservations", "users"
+  add_foreign_key "seat_reservations", "seats"
+  add_foreign_key "seat_reservations", "users"
   add_foreign_key "seats", "buses"
+  add_foreign_key "seats", "users"
 end

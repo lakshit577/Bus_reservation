@@ -26,7 +26,7 @@ class BusesController < ApplicationController
     end
   
     def show
-    #   @bus = Bus.find(params[:id])
+      # @bus = Bus.find(params[:id])
     end
   
     private

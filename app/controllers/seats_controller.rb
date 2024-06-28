@@ -8,21 +8,23 @@ class SeatsController < ApplicationController
     end
   
     def create
+      # debugger
       selected_seat_ids = params[:bus][:seat_ids] if params[:bus].present? && params[:bus][:seat_ids].present?
 
     
-      if selected_seat_ids.blank?
-        redirect_to new_bus_seat_path(@bus), alert: 'No seats selected.'
-        return
-      end
+      if selected_seat_ids.empty?
+        flash[:alert] = "Please select at least one seat."
+        render :new , status: :unprocessable_entity
+      else
     
       # ActiveRecord::Base.transaction do
         selected_seat_ids.each do |seat_id|
           seat = @bus.seats.find(seat_id.to_i)  # Convert seat_id to integer
-          seat.update!(selected: true)
+          seat.update!(selected: true, user_id: current_user.id)        
         end
-      # end
-    
+
+      end
+      
       redirect_to new_bus_reservation_path, notice: 'Seats were successfully selected.'
     # rescue ActiveRecord::RecordNotFound => e
     #   redirect_to new_bus_seat_path(@bus), alert: "Seat with ID #{seat_id} not found."

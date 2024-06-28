@@ -1,5 +1,8 @@
 class User < ApplicationRecord
 
+    has_many :buses, dependent: :destroy
+    has_many :reservations
+    has_many :seat_reservations
 
     # Validations
     validates :email, presence: true, uniqueness: true
@@ -7,7 +10,6 @@ class User < ApplicationRecord
     validates :contact, presence: true, length: { minimum: 10, maximum: 15 }
   
 
-  has_many :buses, dependent: :destroy
   enum role: [:customer, :bus_owner]
   # after_initialize :set_default_role, :if => :new_record?
 
@@ -16,6 +18,3 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end
-
-
-
