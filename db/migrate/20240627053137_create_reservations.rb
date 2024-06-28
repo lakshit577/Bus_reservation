@@ -7,8 +7,6 @@ class CreateReservations < ActiveRecord::Migration[6.1]
       t.references :seat, null: false, foreign_key: true, unique: true
       t.decimal :price, precision: 10, scale: 2, null: false
       t.datetime :booking_date, null: false
-
-
       t.timestamps
     end
   end

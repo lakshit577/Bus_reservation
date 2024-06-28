@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_27_200957) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_28_133449) do
   create_table "buses", force: :cascade do |t|
     t.string "bus_name"
     t.integer "bus_number"
@@ -23,9 +23,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_200957) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "no_of_available_seats", default: 50
     t.integer "number_of_seats"
+    t.integer "no_of_available_seats", default: 50
     t.index ["user_id"], name: "index_buses_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "bus_id", null: false
+    t.integer "user_id", null: false
+    t.decimal "total_amount", precision: 10, scale: 2, null: false
+    t.boolean "paid", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -77,6 +86,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_200957) do
   end
 
   add_foreign_key "buses", "users"
+  add_foreign_key "payments", "buses"
+  add_foreign_key "payments", "users"
   add_foreign_key "reservations", "buses"
   add_foreign_key "reservations", "seats"
   add_foreign_key "reservations", "users"

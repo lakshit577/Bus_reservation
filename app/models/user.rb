@@ -3,6 +3,7 @@ class User < ApplicationRecord
     has_many :buses, dependent: :destroy
     has_many :reservations
     has_many :seat_reservations
+    has_many :payments
 
     # Validations
     validates :email, presence: true, uniqueness: true

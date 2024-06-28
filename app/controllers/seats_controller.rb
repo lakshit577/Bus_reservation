@@ -1,6 +1,7 @@
 # app/controllers/seats_controller.rb
 class SeatsController < ApplicationController
-    before_action :set_bus, only: [:new, :create]
+    before_action :set_bus
+    before_action :set_seat ,only: [:unselect_seat]
   
     def new
         # debugger
@@ -32,12 +33,27 @@ class SeatsController < ApplicationController
     #   flash[:alert] = "Error selecting seats: #{e.message}"
     #   redirect_to new_bus_seat_path(@bus)
     end
+
+    def unselect_seat
+      # debugger
+      if @seat.update(selected: false, user_id: nil)
+        redirect_to new_bus_reservation_path, notice: 'Seat was successfully unselected.'
+      else
+        redirect_to new_bus_reservation_path, alert: 'Failed to unselect seat.'
+      end
+    end
+
     
     private
     
     def set_bus
       @bus = Bus.find(params[:bus_id])
     end
+
+    def set_seat
+      @seat = @bus.seats.find(params[:id])
+    end
+
   end
   
 

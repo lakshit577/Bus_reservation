@@ -1,6 +1,7 @@
 class Bus < ApplicationRecord
     belongs_to :user
     has_many :seats , dependent: :destroy
+    has_many :payments , dependent: :destroy
 
      # Validations
     validates :bus_name, presence: true

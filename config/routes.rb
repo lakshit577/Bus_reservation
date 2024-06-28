@@ -9,12 +9,15 @@ Rails.application.routes.draw do
   resources :buses
 
   resources :buses do
-    resources :seats
+    resources :seats do
+      member do
+        delete :unselect_seat
+      end
+    end
     resources :reservations
-    # resources :seat_reservations#, only: [:create, :destroy]   
-  end
-  resources :reservations
+    resources :payments
   
-  # Defines the root path route ("/")
+  end
+ 
   root "home#index"
 end
