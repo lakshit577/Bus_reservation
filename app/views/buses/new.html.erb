@@ -11,58 +11,79 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :bus_name %>
-    <%= form.text_field :bus_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :bus_number %>
-    <%= form.number_field :bus_number %>
-  </div>
-   <div class="field">
-    <%= form.label :number_of_seats %>
-    <%= form.number_field :number_of_seats %>
-  </div>
-
-  <div class="field">
-  <%= form.label :bus_type %>
-  <%= form.select :bus_type, Bus.bus_types.keys.map { |type| type } %>
-  </div>
-
-
-  <div class="field">
-    <%= form.label :price_of_a_single_seat %>
-    <%= form.number_field :price_of_a_single_seat %>
-  </div>
-
-  <div class="field">
-    <%= form.label :departure_time %>
-    <%= form.time_select :departure_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :departure_location %>
-    <%= form.select :departure_location, CS.states(:IN).map { |code, name| [name, code] } %>
-    
-  </div>
-
-  <div class="field">
-    <%= form.label :arrival_time %>
-    <%= form.time_select :arrival_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :arrival_location %>
-    <%= form.select :arrival_location, CS.states(:IN).map { |code, name| [name, code] } %>
-  </div>
-
-
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-
+<table class="table table-striped">
+  <%= form_with(model: @bus, local: true) do |form| %>
+    <tr>
+      <td>
+        <div class="field">
+          <%= form.label :bus_name %>
+          <%= form.text_field :bus_name %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= form.label :bus_number %>
+          <%= form.number_field :bus_number %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= form.label :number_of_seats %>
+          <%= form.number_field :number_of_seats %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= form.label :bus_type %>
+          <%= form.select :bus_type, Bus.bus_types.keys.map { |type| [type.capitalize, type] } %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= form.label :price_of_a_single_seat %>
+          <%= form.number_field :price_of_a_single_seat %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= form.label :departure_time %>
+          <%= form.time_select :departure_time %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= form.label :departure_location %>
+          <%= form.select :departure_location, CS.states(:IN).map { |code, name| [name, code] } %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= form.label :arrival_time %>
+          <%= form.time_select :arrival_time %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= form.label :arrival_location %>
+          <%= form.select :arrival_location, CS.states(:IN).map { |code, name| [name, code] } %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="actions >
+          <%= form.submit %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%end%>

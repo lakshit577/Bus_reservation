@@ -11,6 +11,11 @@
   </head>
 
   <body>
+
+
+  <%= render 'layouts/navbar' %>   
+  <br>
+ <div class="container">
   <nav>
   <ul>
   <% unless on_auth_page? %>
@@ -31,5 +36,6 @@
     <p class="alert"><%= alert %></p>
 
     <%= yield %>
+    </div >
   </body>
 </html>
