@@ -1,6 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :seat
+  
 
   validates :booking_date, presence: true
   validate :validate_booking_date_and_seat, on: :create

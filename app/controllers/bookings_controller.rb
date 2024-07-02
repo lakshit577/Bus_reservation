@@ -17,12 +17,13 @@ class BookingsController < ApplicationController
     # Check if the bus departure time has passed and booking date is in the past
     # debugger
     if @bus.departure_time.strftime("%H:%M:%S") < Time.now.strftime("%H:%M:%S") && @booking_date < Date.today
-      flash.now[:alert] = "Booking cannot be made after the departure time of the bus."
-      render :new
+      flash[:alert] = "Booking cannot be made after the departure time of the bus."
+      render :new ,status: :unprocessable_entity
       return
     end
 
     if @booking.save
+      # @booking.update!(@booking.booking_date :nil ,)
       redirect_to bus_seats_path(@bus), notice: 'Seat was successfully booked.'
     else
       render :new
