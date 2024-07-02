@@ -1,0 +1,40 @@
+<h1>My Buses</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Bus Name</th>
+      <th>Bus Number</th>
+      <th>Bus Type</th>
+  
+      <th>Price of a Single Seat</th>
+      <th>Departure Time</th>
+      <th>Departure Location</th>
+      <th>Arrival Time</th>
+      <th>Arrival Location</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @buses.each do |bus| %>
+      <tr>
+        <td><%= bus.bus_name %></td>
+        <td><%= bus.bus_number %></td>
+        <td><%= bus.bus_type %></td>
+      
+        <td><%= bus.price_of_a_single_seat %></td>
+        <td><%= bus.departure_time.strftime('%H:%M') if bus.departure_time %></td>
+        <td><%= bus.departure_location %></td>
+        <td><%= bus.arrival_time.strftime('%H:%M') if bus.arrival_time %></td>
+        <td><%= bus.arrival_location %></td>
+        <td>
+          <%= link_to "View Details", bus_path(bus), class: "btn btn-primary btn-sm" %>
+          <%= link_to "Edit", edit_bus_path(bus), class: "btn btn-secondary btn-sm" %>
+          <%= link_to "Delete", bus_path(bus), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to home", bus_owner_home_path, class: "btn btn-secondary" %>
