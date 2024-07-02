@@ -1,0 +1,20 @@
+<h1>Seats for <%= @bus.bus_name %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Seat Number</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @seats.each do |seat| %>
+      <tr>
+        <td><%= seat.seat_number %></td>
+        <td><%= link_to "Book", new_bus_seat_booking_path(@bus, seat), class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to Bus", bus_path(@bus), class: "btn btn-secondary" %>

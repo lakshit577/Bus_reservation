@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-
+  has_many :bookings
+  has_many :seats, through: :bookings
   has_many :buses
   enum role: [:customer, :bus_owner]
   # after_initialize :set_default_role, :if => :new_record?
