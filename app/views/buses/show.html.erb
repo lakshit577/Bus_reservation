@@ -1,0 +1,50 @@
+<h1><%= @bus.bus_name %></h1>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Bus Number</th>
+      <td><%= @bus.bus_number %></td>
+    </tr>
+    <tr>
+      <th>Bus Type</th>
+      <td><%= @bus.bus_type %></td>
+    </tr>
+
+    <tr>
+      <th>Price of a Single Seat</th>
+      <td><%= @bus.price_of_a_single_seat %></td>
+    </tr>
+    <tr>
+      <th>Departure Time</th>
+      <td><%= @bus.departure_time.strftime('%H:%M') if @bus.departure_time %></td>
+    </tr>
+    <tr>
+      <th>Departure Location</th>
+      <td><%= @bus.departure_location %></td>
+    </tr>
+    <tr>
+      <th>Arrival Time</th>
+      <td><%= @bus.arrival_time.strftime('%H:%M') if @bus.arrival_time %></td>
+    </tr>
+    <tr>
+      <th>Arrival Location</th>
+      <td><%= @bus.arrival_location %></td>
+    </tr>
+    <tr>
+      <th>Owned By</th>
+      <td><%= @bus.user.name %></td>
+    </tr>
+    <tr>
+      <th>Total no of seats</th>
+      <td><%= @bus.number_of_seats %></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<%# app/views/buses/show.html.erb %>
+<%= link_to "Create Booking", bus_seats_path(@bus), class: "btn btn-primary" %>
+
+
+<%= link_to "Back to All Buses", buses_path, class: "btn btn-secondary" %>
