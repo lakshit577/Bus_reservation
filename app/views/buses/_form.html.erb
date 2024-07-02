@@ -1,0 +1,61 @@
+<%= form_with(model: @bus, local: true, class: "form") do |form| %>
+  <% if @bus.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@bus.errors.count, "error") %> prohibited this bus from being saved:</h2>
+      <ul>
+        <% @bus.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :bus_name, class: "form-label" %>
+    <%= form.text_field :bus_name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :bus_number, class: "form-label" %>
+    <%= form.number_field :bus_number, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :bus_type, class: "form-label" %>
+    <%= form.select :bus_type, Bus.bus_types.keys.map { |type| [type.humanize, type] }, {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :number_of_seats, class: "form-label" %>
+    <%= form.number_field :number_of_seats, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :price_of_a_single_seat, class: "form-label" %>
+    <%= form.number_field :price_of_a_single_seat, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :departure_datetime, class: "form-label" %>
+    <%= form.datetime_select :departure_datetime, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :departure_location, class: "form-label" %>
+    <%= form.select :departure_location, options_for_select(CS.cities(:IN)), {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :arrival_datetime, class: "form-label" %>
+    <%= form.datetime_select :arrival_datetime, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :arrival_location, class: "form-label" %>
+    <%= form.select :arrival_location, options_for_select(CS.cities(:IN)), {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

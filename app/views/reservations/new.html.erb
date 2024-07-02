@@ -1,0 +1,79 @@
+<h1>Confirm Reservation</h1>
+<%#debugger%>
+<%= form_with model: @reservation , url: bus_reservations_path(@bus),  local: true do |form| %>
+  <% if @reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+      <ul>
+        <% @reservation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_name %>
+    <%= form.text_field :user_name, value: current_user.name, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bus_name %>
+    <%= form.text_field :bus_name, value: @bus.bus_name, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bus_number %>
+    <%= form.text_field :bus_number, value: @bus.bus_number, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price_per_seat %>
+    <%= form.number_field :price, value: @bus.price_of_a_single_seat, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :selected_seats %>
+    <%= form.text_field :selected_seats, value: @seat.map(&:seat_number).join(", "), disabled: true %>
+    <%#@seat.each do |s| %>
+      <%# form.text_field :seat_ids, value: s.id %>
+    <%#end %>
+  </div>
+
+  
+
+  <div class="field">
+    <%= form.label :departure_location %>
+    <%= form.text_field :departure_location, value: @bus.departure_location, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :arrival_location %>
+    <%= form.text_field :arrival_location, value: @bus.arrival_location, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price_per_seat %>
+    <%= form.number_field :price, value: @bus.price_of_a_single_seat, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :no_of_selected_seats %>
+    <%= form.number_field :no_of_selected_seats, value: @seat.length, disabled: true %>
+  </div>
+  <div class="field">
+    <%= form.label :price_of_a_single_seat %>
+    <%= form.number_field :price_of_a_single_seat, value: @bus.price_of_a_single_seat * @seat.count, disabled: true %>
+  </div>
+
+  <%= form.hidden_field :booking_date, value: Time.current %>
+
+  <div class="actions">
+    <%= form.submit "Confirm Reservation", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+
+
+
+

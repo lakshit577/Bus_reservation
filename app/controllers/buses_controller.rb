@@ -1,4 +1,5 @@
 class BusesController < ApplicationController
+
   before_action :authenticate_user!
   before_action :if_user_is_bus_owner, only: [:new, :create]
 

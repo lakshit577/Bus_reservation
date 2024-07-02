@@ -2,10 +2,9 @@ Rails.application.routes.draw do
   get 'bookings/new'
   get 'bookings/create'
   devise_for :users, controllers: {
-  registrations: 'users/registrations'
+  registrations: 'users/registrations',sessions: 'users/sessions' 
 }
 
-  # devise_for :users
   get 'home/index'
   get 'bus_owner', to: 'home#bus_owner_index', as: :bus_owner_home
   resources :buses do
@@ -14,8 +13,9 @@ Rails.application.routes.draw do
       resources :bookings
     end
   end
+
   
-  # resources :bus_owners  
-  # Defines the root path route ("/")
+  end
+ 
   root "home#index"
 end

@@ -71,3 +71,4 @@ gem "devise", "~> 4.9"
 gem 'sassc-rails'
 gem 'city-state'
 gem 'bootstrap', '~> 5.3.3'
+

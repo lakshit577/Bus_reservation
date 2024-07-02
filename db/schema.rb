@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_081519) do
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
+
   create_table "buses", force: :cascade do |t|
     t.string "bus_name"
     t.integer "bus_number"
@@ -43,6 +44,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_081519) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bus_id"], name: "index_seats_on_bus_id"
+
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,4 +66,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_081519) do
   add_foreign_key "bookings", "users"
   add_foreign_key "buses", "users"
   add_foreign_key "seats", "buses"
+
 end

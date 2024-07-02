@@ -1,3 +1,4 @@
+
 class SeatsController < ApplicationController
     before_action :set_bus
   
@@ -11,4 +12,3 @@ class SeatsController < ApplicationController
       @bus = Bus.find(params[:bus_id])
     end
   end
-  
