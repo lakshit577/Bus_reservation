@@ -40,7 +40,7 @@
 
   <div class="field">
     <%= form.label :departure_location %>
-    <%= form.text_field :departure_location %>
+    <%= form.select :departure_location, CS.states(:IN).map { |code, name| [name, code] } %>
   </div>
 
   <div class="field">
@@ -50,7 +50,7 @@
 
   <div class="field">
     <%= form.label :arrival_location %>
-    <%= form.select :arrival_location, options_for_select(['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Ahmedabad', 'Chennai', 'Kolkata', 'Pune', 'Jaipur', 'Surat']) %>
+    <%= form.select :arrival_location, CS.states(:IN).map { |code, name| [name, code] } %>
   </div>
 
 
