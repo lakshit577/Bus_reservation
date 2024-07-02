@@ -16,9 +16,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_091412) do
     t.integer "bus_number"
     t.integer "bus_type", default: 0
     t.integer "price_of_a_single_seat"
-    t.datetime "departure_datetime"
+    t.time "departure_time"
     t.string "departure_location"
-    t.datetime "arrival_datetime"
+    t.time "arrival_time"
     t.string "arrival_location"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
