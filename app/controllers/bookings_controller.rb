@@ -6,9 +6,11 @@ class BookingsController < ApplicationController
   def new
     @booking = Booking.new
   end
-
+  
   def new_multiple
+    # debugger
     @seats = @bus.seats.where(id: params[:seats])
+    # debugger
     @booking_date = params[:date]
     if @seats.empty?
       redirect_to bus_seats_path(@bus), alert: "No seats selected."
@@ -20,15 +22,20 @@ class BookingsController < ApplicationController
     seat_ids = params[:booking][:seats]
     booking_date =    params[:booking_date]
 
+    #trancation
+    #validation to check seat already book or not
+    #
     seat_ids.each do |seat_id|
+    
       seat = @bus.seats.find(seat_id)
       booking = seat.bookings.new(user: current_user, booking_date: booking_date)
-      unless booking.save
-        redirect_to bus_seats_path(@bus), notice: 'Seats were successfully booked.'
-        # redirect_to bus_seats_path(@bus), alert: "Error booking seat #{seat.seat_number}."
-        return
-      end
+
+      booking.save
     end
+
+     
+      redirect_to home_index_path, notice: 'Seats were successfully booked.'
+  
   end
 
   private

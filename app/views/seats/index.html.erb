@@ -14,10 +14,12 @@
 <%= form_with url: new_multiple_bus_bookings_path(@bus), method: :get, local: true, id: "seats-form" do %>
   <div id="seats-container">
     <% if @seats.any? %>
+    
       <div class="seats-grid">
         <% @seats.each do |seat| %>
           <div class="seat-checkbox">
             <label>
+           
               <%= check_box_tag "seats[]", seat.id, false, class: "seat-checkbox-input", data: { seat_id: seat.id, seat_number: seat.seat_number } %>
               <span class="seat-number"><%= seat.seat_number %></span>
             </label>
@@ -30,8 +32,8 @@
   </div>
   <br>
 
+              <%= hidden_field_tag :date, @date %>
   <div class="actions">
-    <%= hidden_field_tag :date, @date %>
     <%= submit_tag "Book Selected Seats", class: "btn btn-primary" %>
   </div>
 <% end %>

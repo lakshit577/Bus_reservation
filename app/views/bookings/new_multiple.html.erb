@@ -8,13 +8,13 @@
     <% end %>
   </ul>
 
-  <%= form_with(url: bus_bookings_path(@bus), method: :post, local: true) do |form| %>
+  <%= form_with(url: bus_bookings_path(@bus), method: :post, local: true, data: { turbolinks: false }) do |form| %>
     <%= hidden_field_tag :booking_date, @booking_date %>
     <% @seats.each do |seat| %>
       <%= hidden_field_tag "booking[seats][]", seat.id %>
     <% end %>
-    <div class="actions">
-      <%= form.submit "Confirm Booking", class: "btn btn-primary" %>
+    <div class="action">
+      <%=   form.submit "Confirm Booking", class: "btn btn-primary" %>
     </div>
   <% end %>
 <% else %>
