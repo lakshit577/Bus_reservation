@@ -1,8 +1,8 @@
 <h1>New Bus</h1>
 
-<%= form_with(model: @bus, local: true) do |form| %>
+<%= form_with(model: @bus, local: true, class: "needs-validation", novalidate: true) do |form| %>
   <% if @bus.errors.any? %>
-    <div id="error_explanation">
+    <div class="alert alert-danger" role="alert">
       <h2><%= pluralize(@bus.errors.count, "error") %> prohibited this bus from being saved:</h2>
       <ul>
         <% @bus.errors.full_messages.each do |message| %>
@@ -11,79 +11,83 @@
       </ul>
     </div>
   <% end %>
-<table class="table table-striped">
-  <%= form_with(model: @bus, local: true) do |form| %>
-    <tr>
-      <td>
-        <div class="field">
-          <%= form.label :bus_name %>
-          <%= form.text_field :bus_name %>
+
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :bus_name, class: "form-label" %>
+          <%= form.text_field :bus_name, class: "form-control" %>
         </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= form.label :bus_number %>
-          <%= form.number_field :bus_number %>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :bus_number, class: "form-label" %>
+          <%= form.number_field :bus_number, class: "form-control" %>
         </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="field">
-          <%= form.label :number_of_seats %>
-          <%= form.number_field :number_of_seats %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :number_of_seats, class: "form-label" %>
+          <%= form.number_field :number_of_seats, value: 20, class: "form-control", disabled: true %>
         </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= form.label :bus_type %>
-          <%= form.select :bus_type, Bus.bus_types.keys.map { |type| [type.capitalize, type] } %>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :bus_type, class: "form-label" %>
+          <%= form.select :bus_type, Bus.bus_types.keys.map { |type| [type.capitalize, type] }, {}, class: "form-select" %>
         </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="field">
-          <%= form.label :price_of_a_single_seat %>
-          <%= form.number_field :price_of_a_single_seat %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :price_of_a_single_seat, class: "form-label" %>
+          <%= form.number_field :price_of_a_single_seat, class: "form-control" %>
         </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= form.label :departure_time %>
-          <%= form.time_select :departure_time %>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :departure_time, class: "form-label" %>
+          <%= form.time_select :departure_time, {}, class: "form-control" %>
         </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="field">
-          <%= form.label :departure_location %>
-          <%= form.select :departure_location, CS.states(:IN).map { |code, name| [name, code] } %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :departure_location, class: "form-label" %>
+          <%= form.select :departure_location, CS.states(:IN).map { |code, name| [name, code] }, {}, class: "form-select" %>
         </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= form.label :arrival_time %>
-          <%= form.time_select :arrival_time %>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :arrival_time, class: "form-label" %>
+          <%= form.time_select :arrival_time, {}, class: "form-control" %>
         </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="field">
-          <%= form.label :arrival_location %>
-          <%= form.select :arrival_location, CS.states(:IN).map { |code, name| [name, code] } %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :arrival_location, class: "form-label" %>
+          <%= form.select :arrival_location, CS.states(:IN).map { |code, name| [name, code] }, {}, class: "form-select" %>
         </div>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <div class="actions >
-          <%= form.submit %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group text-center">
+          <%= form.submit "Save Bus", class: "btn btn-primary" %>
         </div>
-      </td>
-    </tr>
-  <% end %>
-</table>
-<%end%>
+      </div>
+    </div>
+  </div>
+<% end %>

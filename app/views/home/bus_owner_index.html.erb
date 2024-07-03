@@ -1,6 +1,0 @@
-<% if current_user.bus_owner? %>
-  <%= link_to "My Buses", bus_owner_index_buses_path, class: "btn btn-primary" %>
-  <%= link_to "Add Bus", new_bus_path, class: "btn btn-success" %>
-<% end %>
-
-<%= link_to "Show All Buses", buses_path, class: "btn btn-primary" %>

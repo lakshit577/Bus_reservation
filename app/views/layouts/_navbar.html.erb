@@ -1,14 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <a class="navbar-brand">Bus Reservation System</a>
+  <a class="navbar-brand"><strong><%= link_to 'Bus Reservation System', root_path, class: 'nav-link mx-3' %></strong></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <%= link_to 'Home', root_path, class: 'nav-link' %>
-      </li>
+      
       <% if user_signed_in? %>
           
         <li class="nav-item">
@@ -19,6 +17,9 @@
         <% if current_user.role == "bus_owner" %>
           <li class="nav-item">
             <%= link_to "Add Bus", new_bus_path , class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+  <%= link_to "My Buses", bus_owner_index_buses_path, class: 'nav-link' %>
           </li>
         <% end %>
       <% else %>
