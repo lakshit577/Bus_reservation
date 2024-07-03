@@ -10,8 +10,11 @@ Rails.application.routes.draw do
   get 'bus_owner', to: 'home#bus_owner_index', as: :bus_owner_home
   resources :buses do
     get 'bus_owner_index', on: :collection
-    resources :seats do
-      resources :bookings
+    resources :seats 
+    resources :bookings do
+      collection do
+        get 'new_multiple'
+      end
     end
   end
   

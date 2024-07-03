@@ -1,20 +1,88 @@
 <h1>Seats for <%= @bus.bus_name %></h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Seat Number</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @seats.each do |seat| %>
-      <tr>
-        <td><%= seat.seat_number %></td>
-        <td><%= link_to "Book", new_bus_seat_booking_path(@bus, seat), class: "btn btn-primary" %></td>
-      </tr>
+<%= form_with url: bus_seats_path(@bus), method: :get, local: true do %>
+  <div class="form-group">
+    <%= label_tag :date, "Select Date" %>
+    <%= date_field_tag :date, @date, class: "form-control" %>
+  </div>
+  <br>
+  <%= submit_tag "View Available Seats", class: "btn btn-primary" %>
+
+<% end %>
+<br>
+
+<%= form_with url: new_multiple_bus_bookings_path(@bus), method: :get, local: true, id: "seats-form" do %>
+  <div id="seats-container">
+    <% if @seats.any? %>
+      <div class="seats-grid">
+        <% @seats.each do |seat| %>
+          <div class="seat-checkbox">
+            <label>
+              <%= check_box_tag "seats[]", seat.id, false, class: "seat-checkbox-input", data: { seat_id: seat.id, seat_number: seat.seat_number } %>
+              <span class="seat-number"><%= seat.seat_number %></span>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>No seats available for the selected date.</p>
     <% end %>
-  </tbody>
-</table>
+  </div>
+  <br>
+
+  <div class="actions">
+    <%= hidden_field_tag :date, @date %>
+    <%= submit_tag "Book Selected Seats", class: "btn btn-primary" %>
+  </div>
+<% end %>
+<br>
 
 <%= link_to "Back to Bus", bus_path(@bus), class: "btn btn-secondary" %>
+
+<style>
+  .seats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .seat-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .seat-checkbox input[type="checkbox"] {
+    display: none;
+    
+  }
+  .seat-checkbox label {
+    padding: 5px;
+  }
+  .seat-checkbox.checked {
+    background-color: red;
+    color: white;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.seat-checkbox label').forEach(function(label) {
+      label.addEventListener('click', function(event) {
+        event.preventDefault();
+        const checkbox = label.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+        label.closest('.seat-checkbox').classList.toggle('checked', checkbox.checked);
+      });
+    });
+
+    document.querySelector('#seats-form').addEventListener('submit', function(event) {
+      const checkedSeats = document.querySelectorAll('.seat-checkbox-input:checked');
+      if (checkedSeats.length === 0) {
+        event.preventDefault();
+        alert("Please select at least one seat.");
+      }
+    });
+  });
+</script>

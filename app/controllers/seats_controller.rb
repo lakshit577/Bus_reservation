@@ -2,7 +2,14 @@ class SeatsController < ApplicationController
     before_action :set_bus
   
     def index
-      @seats = @bus.seats
+      
+      @date = params[:date]
+  
+      if @date.present?
+        @seats = @bus.seats.includes(:bookings).select { |seat| seat.bookings.none? { |booking| booking.booking_date == Date.parse(@date) } }
+      else
+        @seats = []
+      end
     end
   
     private
