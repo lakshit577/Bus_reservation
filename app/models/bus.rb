@@ -16,6 +16,9 @@ class Bus < ApplicationRecord
     validates :arrival_location, presence: true
   
     after_create :create_default_seats
+
+
+    
   
     private
   

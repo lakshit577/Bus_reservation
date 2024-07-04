@@ -1,0 +1,26 @@
+<h1>My Reservations</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>S.no </th>
+      <th>Bus Name</th>
+      <th>Seat Number</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%s_no=1%>
+    <% @my_reservations.each do |reservation| %>
+      <tr>
+        <td><%=s_no%></td>
+        <%s_no = s_no+1%>
+        <td><%= reservation.bus.bus_name %></td>
+        <td><%= reservation.seat.seat_number %></td>
+        <td><%= reservation.booking_date %></td>
+        <td>          <%= button_to "Delete", method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %></td>
+      </tr>
+
+    <% end %>
+  </tbody>
+</table>

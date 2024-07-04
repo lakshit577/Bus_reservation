@@ -1,12 +1,21 @@
 <h1>All Buses</h1>
 
+<%= form_with url: home_index_path, method: :get, local: true, class: 'form-inline' do %>
+  <div class="form-group">
+    <%= label_tag :bus_name, 'Search by Bus Name' %>
+    <%= text_field_tag :bus_name, params[:bus_name], class: 'form-control', placeholder: 'Enter bus name' %>
+  </div>
+  <%= submit_tag 'Search', class: 'btn btn-primary' %>
+<% end %>
+
+<br>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Bus Name</th>
       <th>Bus Number</th>
       <th>Bus Type</th>
-
       <th>Price of a Single Seat</th>
       <th>Departure Time</th>
       <th>Departure Location</th>
@@ -22,14 +31,15 @@
         <td><%= bus.bus_name %></td>
         <td><%= bus.bus_number %></td>
         <td><%= bus.bus_type %></td>
-        <%# <td><%= bus.number_of_seats %>
         <td><%= bus.price_of_a_single_seat %></td>
         <td><%= bus.departure_time.strftime('%H:%M') if bus.departure_time %></td>
         <td><%= bus.departure_location %></td>
         <td><%= bus.arrival_time.strftime('%H:%M') if bus.arrival_time %></td>
         <td><%= bus.arrival_location %></td>
         <td><%= bus.user.name %></td>
-        <td><%= link_to "View Details", bus_path(bus), class: "btn btn-primary btn-sm" %></td>
+        <td>
+          <%= link_to "View Details", bus_path(bus), class: "btn btn-primary btn-sm" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
