@@ -1,0 +1,37 @@
+body {
+    background: url('https://t4.ftcdn.net/jpg/06/67/56/53/360_F_667565388_5jyKNCXSA2CtHLJ81GOQeXn1JxPG0zfD.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff; /* Ensure text is visible on the background */
+  }
+  
+  .navbar, .container, nav, ul, li, .notice, .alert, .btn, a {
+    color: #fff; /* Ensure links and buttons are visible */
+  }
+  
+  .container {
+    background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background for readability */
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  nav ul {
+    list-style-type: none;
+  }
+  
+  nav ul li {
+    display: inline;
+    margin-right: 15px;
+  }
+  
+  .btn, a {
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .btn:hover, a:hover {
+    background-color: #0056b3;
+  }
+  
