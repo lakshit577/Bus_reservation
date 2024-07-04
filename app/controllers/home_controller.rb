@@ -2,16 +2,19 @@ class HomeController < ApplicationController
 
   before_action :authenticate_user! ,except: :index
   before_action :if_user_is_bus_owner ,only: [:bus_owner_index]
+  before_action :all_buses ,only: [:bus_owner_index,:index]
 
   def index
-    
+   
   end
-
+  
   def bus_owner_index
+    
 
   end
 
   private
+  
   def if_user_is_bus_owner
     
     if current_user.role == "customer"
@@ -19,5 +22,7 @@ class HomeController < ApplicationController
         redirect_to root_path # or wherever you want to redirect non-bus owners
     end
   end
-  
+  def all_buses
+    @buses = Bus.all
+  end
 end

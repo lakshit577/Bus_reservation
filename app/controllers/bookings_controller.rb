@@ -22,15 +22,17 @@ class BookingsController < ApplicationController
     seat_ids = params[:booking][:seats]
     booking_date =    params[:booking_date]
 
-    #trancation
-    #validation to check seat already book or not
-    #
+   
     seat_ids.each do |seat_id|
     
       seat = @bus.seats.find(seat_id)
       booking = seat.bookings.new(user: current_user, booking_date: booking_date)
-
-      booking.save
+      debugger
+      if booking_date != @date
+        p  "dont change the date"
+      else
+        booking.save
+      end
     end
 
      

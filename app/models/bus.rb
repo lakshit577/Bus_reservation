@@ -1,6 +1,8 @@
 
 class Bus < ApplicationRecord
     has_many :seats, dependent: :destroy
+    has_many :bookings, through: :seats , dependent: :destroy # Assuming bookings are associated with seats
+
     belongs_to :user
     enum bus_type: [:Ac , :NonAc]
   

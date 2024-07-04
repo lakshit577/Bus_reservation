@@ -9,10 +9,7 @@
       
       <% if user_signed_in? %>
           
-        <li class="nav-item">
-          <%= link_to "Show All Buses", buses_path, class: 'nav-link' %>
-        </li>
-        
+       
         
         <% if current_user.role == "bus_owner" %>
           <li class="nav-item">

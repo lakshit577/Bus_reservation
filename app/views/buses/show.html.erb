@@ -44,7 +44,6 @@
 
 
 <%# app/views/buses/show.html.erb %>
-<%= link_to "Create Booking", bus_seats_path(@bus), class: "btn btn-primary" %>
-
+<%= link_to "Create Booking", new_bus_seat_path(@bus), class: "btn btn-primary" %>
 
 <%= link_to "Back to All Buses", buses_path, class: "btn btn-secondary" %>

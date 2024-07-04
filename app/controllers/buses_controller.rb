@@ -1,10 +1,14 @@
 class BusesController < ApplicationController
   before_action :authenticate_user!
-  before_action :if_user_is_bus_owner, only: [:new, :create]
+  before_action :if_user_is_bus_owner, only: [:new, :create,:reservations,:destroy]
 
-  def index
-    @buses = Bus.all
+
+  def reservations
+    # debugger
+    @bus = Bus.find(params[:id])
+    @reservations = @bus.bookings.includes(:seat, :user)
   end
+  
 
   def bus_owner_index
     @buses = current_user.buses
@@ -29,7 +33,17 @@ class BusesController < ApplicationController
     end
   end
 
-  private
+  def destroy
+    @bus = Bus.find(params[:id])
+    @bus.destroy
+    respond_to do |format|
+      format.html { redirect_to buses_url, notice: 'Bus was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private 
+  
 
   def permit_params
     params.require(:bus).permit(:bus_name, :bus_number, :bus_type, :price_of_a_single_seat, :departure_time, :departure_location, :arrival_time, :arrival_location)

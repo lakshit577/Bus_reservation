@@ -1,0 +1,22 @@
+<h1>Reservations for <%= @bus.bus_name %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Seat Number</th>
+      <th>Booking Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td><%= reservation.user.name %></td>
+        <td><%= reservation.seat.seat_number %></td>
+        <td><%= reservation.booking_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to Bus List", buses_path, class: "btn btn-secondary" %>

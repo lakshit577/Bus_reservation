@@ -3,6 +3,7 @@ class CreateBookings < ActiveRecord::Migration[7.1]
     create_table :bookings do |t|
       t.references :user, null: false, foreign_key: true
       t.references :seat, null: false, foreign_key: true
+      t.references :bus, null: false, foreign_key: true
       t.date :booking_date, null: false
 
       t.timestamps
