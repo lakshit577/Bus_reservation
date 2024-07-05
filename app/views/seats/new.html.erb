@@ -1,15 +1,14 @@
 <h1>Seats for <%= @bus.bus_name %></h1>
-
-<%= form_with url: new_bus_seat_path(@bus), method: :get, local: true do %>
+<br>
+<%= form_with url: new_bus_seat_path(@bus), method: :get, local: true do |form| %>
   <div class="form-group">
-    <%= label_tag :date, "Select Date" %>
-    <%= date_field_tag :date, @date, class: "form-control" %>
+    <h4><%= form.label :date, "Select Date" %></h4>
+    <%= form.date_field :date, value: Date.today.strftime('%Y-%m-%d'), class: "form-control" %>
   </div>
   <br>
-  <%= submit_tag "View Available Seats", class: "btn btn-primary" %>
+  <%= form.submit "View Available Seats", class: "btn btn-primary" %>
 <% end %>
 <br>
-
 <%= form_with url: bus_seats_path(@bus), method: :post, local: true, id: "seats-form" do %> <!-- Changed method to :post -->
   <div id="seats-container">
     <% if @seats.any? && @date >= Date.today.strftime("%Y-%m-%d") %>
@@ -65,7 +64,7 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  function attachSeatCheckboxHandlers() {
     document.querySelectorAll('.seat-checkbox label').forEach(function(label) {
       label.addEventListener('click', function(event) {
         event.preventDefault();
@@ -74,6 +73,10 @@
         label.closest('.seat-checkbox').classList.toggle('checked', checkbox.checked);
       });
     });
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    attachSeatCheckboxHandlers();
 
     document.querySelector('#seats-form').addEventListener('submit', function(event) {
       const checkedSeats = document.querySelectorAll('.seat-checkbox-input:checked');
@@ -84,3 +87,5 @@
     });
   });
 </script>
+
+

@@ -7,6 +7,7 @@
       <th>Bus Name</th>
       <th>Seat Number</th>
       <th>Date</th>
+      <th>Delete Reservations</th>
     </tr>
   </thead>
   <tbody>
@@ -18,9 +19,10 @@
         <td><%= reservation.bus.bus_name %></td>
         <td><%= reservation.seat.seat_number %></td>
         <td><%= reservation.booking_date %></td>
-        <td>          <%= button_to "Delete", method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %></td>
+        <td><%= button_to "Delete",destroy_reservation_bus_path(reservation.bus, reservation_id: reservation.id), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %></td>
       </tr>
-
     <% end %>
   </tbody>
 </table>
+
+

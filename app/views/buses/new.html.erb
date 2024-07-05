@@ -57,7 +57,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <%= form.label :departure_location, class: "form-label" %>
-          <%= form.select :departure_location, CS.states(:IN).map { |code, name| [name, code] }, {}, class: "form-select" %>
+          <%= form.select :departure_location, CS.states(:IN).map { |name| [name] }, {}, class: "form-select" %>
         </div>
       </div>
       <div class="col-md-6">
@@ -72,7 +72,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <%= form.label :arrival_location, class: "form-label" %>
-          <%= form.select :arrival_location, CS.states(:IN).map { |code, name| [name, code] }, {}, class: "form-select" %>
+          <%= form.select :arrival_location, CS.states(:IN).map { | name| [name] }, {}, class: "form-select" %>
         </div>
       </div>
     </div>

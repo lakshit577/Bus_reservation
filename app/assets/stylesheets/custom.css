@@ -1,5 +1,5 @@
 body {
-    background: url('https://t4.ftcdn.net/jpg/06/67/56/53/360_F_667565388_5jyKNCXSA2CtHLJ81GOQeXn1JxPG0zfD.jpg') no-repeat center center fixed;
+    background: url(' https://t4.ftcdn.net/jpg/06/67/56/53/360_F_667565388_5jyKNCXSA2CtHLJ81GOQeXn1JxPG0zfD.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #fff; /* Ensure text is visible on the background */
   }
@@ -34,4 +34,4 @@ body {
   .btn:hover, a:hover {
     background-color: #0056b3;
   }
-  
+  /* https://t4.ftcdn.net/jpg/06/67/56/53/360_F_667565388_5jyKNCXSA2CtHLJ81GOQeXn1JxPG0zfD.jpg */

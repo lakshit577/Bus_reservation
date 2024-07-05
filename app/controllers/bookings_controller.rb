@@ -3,9 +3,7 @@ class BookingsController < ApplicationController
   before_action :set_bus, only: [:new, :new_multiple, :create]
   before_action :set_seat, only: [:new]
 
-  def new
-    @booking = Booking.new
-  end
+
   
   def new_multiple
     # debugger

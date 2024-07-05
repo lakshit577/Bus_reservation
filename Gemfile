@@ -72,4 +72,4 @@ gem 'sassc-rails'
 gem 'city-state'
 gem 'bootstrap', '~> 5.3.3'
 
-gem 'faker'
+

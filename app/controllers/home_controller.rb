@@ -5,12 +5,16 @@ class HomeController < ApplicationController
   before_action :all_buses ,only: [:bus_owner_index,:index]
 
   def index
-    
-    @buses = if params[:bus_name].present?
-      Bus.where(bus_name: params[:bus_name])
+    if user_signed_in?
+      @buses = if params[:bus_name].present?
+        Bus.where(bus_name: params[:bus_name])
+      else
+        Bus.all
+      end
     else
-      Bus.all
+      @buses = nil
     end
+
   end
   
   def bus_owner_index
