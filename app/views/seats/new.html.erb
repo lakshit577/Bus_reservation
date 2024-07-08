@@ -9,7 +9,7 @@
   <%= form.submit "View Available Seats", class: "btn btn-primary" %>
 <% end %>
 <br>
-<%= form_with url: bus_seats_path(@bus), method: :post, local: true, id: "seats-form" do %> <!-- Changed method to :post -->
+<%= form_with url: bus_bookings_path(@bus), method: :post, local: true, id: "seats-form" do %> <!-- Changed method to :post -->
   <div id="seats-container">
     <% if @seats.any? && @date >= Date.today.strftime("%Y-%m-%d") %>
       <div class="seats-grid">

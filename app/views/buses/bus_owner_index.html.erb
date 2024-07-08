@@ -32,7 +32,8 @@
         <td> <%= link_to "Details", bus_path(bus), class: "btn btn-primary btn-sm" %></td>
         <td><%= button_to "Delete", bus_path(bus), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
           </td>
-        <td> <%= link_to "Reservations", reservations_bus_path(bus), class: "btn btn-info btn-sm" %></td>
+
+        <td> <%= link_to "Reservations", reservations_bus_bookings_path(bus), class: "btn btn-info btn-sm" %></td>
         
       </tr>
     <% end %>

@@ -5,39 +5,46 @@ class BookingsController < ApplicationController
 
 
   
-  def new_multiple
-    # debugger
-    @seats = @bus.seats.where(id: params[:seats])
-    # debugger
-    @booking_date = params[:date]
-    if @seats.empty?
-      redirect_to bus_seats_path(@bus), alert: "No seats selected."
-    end
-  end
+  
 
   def create
-    # debugger
-    seat_ids = params[:booking][:seats]
-    booking_date =    params[:booking_date]
-
-   
-    seat_ids.each do |seat_id|
-    
-      seat = @bus.seats.find(seat_id)
-      booking = seat.bookings.new(user: current_user, booking_date: booking_date)
-      debugger
-      if booking_date != @date
-        p  "dont change the date"
-      else
-        booking.save
+    @date = params[:date]
+    seat_ids = params[:seats] || []
+    if @date.present? && seat_ids.any?
+      # debugger
+      seat_ids.each do |seat_id|
+        Booking.create(user_id: current_user.id, seat_id: seat_id, booking_date: @date ,bus_id: set_bus.id )
       end
+      redirect_to bus_path(@bus), notice: "Seats successfully booked for #{@date}"
+    else
+      redirect_to new_bus_seat_path(@bus), alert: "Please select at least one seat and provide a valid date."
     end
-
-     
-      redirect_to home_index_path, notice: 'Seats were successfully booked.'
-  
   end
 
+  def reservations
+    # debugger
+    
+    @reservations = @bus.bookings.includes(:seat, :user)
+  end
+
+
+  def user_reservations
+    @user = current_user
+    @my_reservations = @user.bookings.includes(:seat, :bus)
+      
+    
+  end
+
+  def destroy_reservations
+    # debugger
+    @reservation = Booking.find(params[:bus_id])
+    if @reservation.destroy
+      redirect_to user_reservations_bus_bookings_path      , notice: 'Reservation was successfully deleted.'
+    else
+      render 
+    end
+
+  end
   private
 
   def set_bus

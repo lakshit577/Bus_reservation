@@ -1,4 +1,7 @@
+<%if current_user.bookings.any?%>
 <h1>My Reservations</h1>
+
+
 
 <table class="table table-striped">
   <thead>
@@ -19,10 +22,13 @@
         <td><%= reservation.bus.bus_name %></td>
         <td><%= reservation.seat.seat_number %></td>
         <td><%= reservation.booking_date %></td>
-        <td><%= button_to "Delete",destroy_reservation_bus_path(reservation.bus, reservation_id: reservation.id), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %></td>
+
+        <td><%= button_to "Delete",destroy_reservations_bus_bookings_path(reservation), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-
+<%else%>
+  <h1>NO BOOKINGS YET</h1>
+<%end%>

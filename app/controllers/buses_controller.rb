@@ -46,16 +46,7 @@ class BusesController < ApplicationController
     end
   end
 
-  def destroy_reservations
-    # debugger
-
-    @reservation = Booking.find(params[:reservation_id])
-    if @reservation.destroy
-      redirect_to user_reservations_bus_path, notice: 'Reservation was successfully deleted.'
-  
-    end
-
-  end
+ 
 
   private 
   
