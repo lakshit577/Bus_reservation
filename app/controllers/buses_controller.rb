@@ -1,18 +1,10 @@
 class BusesController < ApplicationController
+  
   before_action :authenticate_user!
   before_action :if_user_is_bus_owner, only: [:new, :create,:reservations,:destroy]
 
 
-  def reservations
-    # debugger
-    @bus = Bus.find(params[:id])
-    @reservations = @bus.bookings.includes(:seat, :user)
-  end
 
-  def user_reservations
-    @user = current_user
-    @my_reservations = @user.bookings.includes(:seat, :bus)
-  end
 
   def bus_owner_index
     @buses = current_user.buses
