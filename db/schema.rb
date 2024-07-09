@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_02_081519) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_09_090357) do
   create_table "bookings", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "seat_id", null: false
@@ -25,9 +25,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_081519) do
 
   create_table "buses", force: :cascade do |t|
     t.string "bus_name"
-    t.integer "bus_number"
+    t.string "bus_number"
     t.integer "bus_type", default: 0
-    t.integer "price_of_a_single_seat"
+    t.bigint "price_of_a_single_seat"
     t.time "departure_time"
     t.string "departure_location"
     t.time "arrival_time"

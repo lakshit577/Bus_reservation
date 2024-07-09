@@ -22,8 +22,8 @@ class BookingsController < ApplicationController
   end
 
   def reservations
-    # debugger
-    
+
+    @bus=set_bus
     @reservations = @bus.bookings.includes(:seat, :user)
   end
 

@@ -5,4 +5,8 @@ class Seat < ApplicationRecord
 
   # belongs_to :bus
   validates :seat_number, presence: true, uniqueness: { scope: :bus_id }
+
+  def available?(date)
+    bookings.none? { |booking| booking.booking_date == date }
+  end
 end

@@ -1,15 +1,21 @@
 class SeatsController < ApplicationController
+  rescue_from AbstractController::ActionNotFound, with: :render_404
+
   before_action :set_bus
 
-  def new
-    @date = params[:date]
+  # app/controllers/seats_controller.rb
 
-    if @date.present?
-      @seats = @bus.seats.includes(:bookings).select { |seat| seat.bookings.none? { |booking| booking.booking_date == Date.parse(@date) } }
-    else
-      @seats = []
-    end
+def new
+  
+  @date = params[:date]
+  # debugger
+
+  if @date.present?
+    @seats = @bus.seats.includes(:bookings).select { |seat| seat.available?(Date.parse(@date)) }
+  else
+    @seats = []
   end
+end
 
   # def create
   #   @date = params[:date]

@@ -21,7 +21,7 @@ gem "importmap-rails"
 gem "turbo-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "stimulus-rails"
+# gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
@@ -73,3 +73,4 @@ gem 'city-state'
 gem 'bootstrap', '~> 5.3.3'
 
 
+# gem 'webpacker', '~> 5.x'
