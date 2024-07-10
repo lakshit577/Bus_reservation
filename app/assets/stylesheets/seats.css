@@ -1,0 +1,40 @@
+
+  .seats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .seat-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .seat-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    background-color: green; /* Default background color for available seats */
+  }
+
+  .seat-checkbox.unavailable {
+    background-color: red; /* Red background color for unavailable seats */
+    cursor: not-allowed; /* Disable cursor for unavailable seats */
+  }
+
+  .seat-checkbox input[type="checkbox"] {
+    display: none;
+  }
+
+  .seat-checkbox label {
+    padding: 5px;
+    color: white; /* Default text color for seat numbers */
+  }
+
+  .seat-checkbox.checked {
+    background-color: red !important; /* Yellow background when checked */
+    color: black; /* Change text color when checked */
+  }

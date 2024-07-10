@@ -1,0 +1,47 @@
+<!-- app/views/seats/new.html.erb -->
+
+<h1>Seats for <%= @bus.bus_name %></h1>
+<br>
+<%= form_with url: new_bus_seat_path(@bus), method: :get, local: true do |form| %>
+  <div class="form-group">
+    <h4><%= form.label :date, "Select Date" %></h4>
+    <%= form.date_field :date, value: @date, class: "form-control" , min: Date.today%>
+  </div>
+  <br>
+  <%= form.submit "View Available Seats", class: "btn btn-primary" %>
+<% end %>
+<br>
+<%= form_with url: bus_bookings_path(@bus), method: :post, local: true, id: "seats-form" do %>
+  <div id="seats-container">
+    <% if @seats.any? && @date >= Date.today.strftime("%Y-%m-%d") %>
+      <div class="seats-grid">
+        <%@num=0%>
+        <% @seats.in_groups_of(2, false) do |seat_row| %>
+          <div class="seat-row">
+            <% seat_row.compact.each do |seat| %>
+              <div class="seat-checkbox <%= 'unavailable' unless seat.available?(@date) %>">
+                <label>
+                  <%= check_box_tag "seats[]", seat.id, false, class: "seat-checkbox-input", data: { seat_id: seat.id, seat_number: seat.seat_number }, disabled: !seat.available?(@date) %>
+                  <span class="seat-number"><%= seat.seat_number %></span>
+                  <%#=@num=@num+1%>
+                </label>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>No seats available for the selected date.</p>
+    <% end %>
+  </div>
+  <br>
+  
+
+  <%= hidden_field_tag :date, @date %> <!-- Hidden field for date -->
+  <div class="actions">
+    <%= submit_tag "Pay Amount for Seats", class: "btn btn-primary" %>
+  </div>
+<% end %>
+<br>
+
+<%= link_to "Back to Bus", bus_path(@bus), class: "btn btn-secondary" %>

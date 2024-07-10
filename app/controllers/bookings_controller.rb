@@ -1,50 +1,41 @@
+# app/controllers/bookings_controller.rb
 class BookingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_bus, only: [:new, :new_multiple, :create]
+  before_action :set_bus, only: [:new, :create, :reservations]
   before_action :set_seat, only: [:new]
-
-
-  
-  
 
   def create
     @date = params[:date]
     seat_ids = params[:seats] || []
-    if @date.present? && seat_ids.any?
-      # debugger
-      seat_ids.each do |seat_id|
-        Booking.create(user_id: current_user.id, seat_id: seat_id, booking_date: @date ,bus_id: set_bus.id )
-      end
-      redirect_to bus_path(@bus), notice: "Seats successfully booked for #{@date}"
+    result = Bookings::CreateBooking.new(current_user, @bus, seat_ids, @date).call
+
+    if result.success?
+      redirect_to bus_path(@bus), notice: result.message
     else
-      redirect_to new_bus_seat_path(@bus), alert: "Please select at least one seat and provide a valid date."
+      redirect_to new_bus_seat_path(@bus), alert: result.message
     end
   end
 
   def reservations
-
-    @bus=set_bus
     @reservations = @bus.bookings.includes(:seat, :user)
   end
-
 
   def user_reservations
     @user = current_user
     @my_reservations = @user.bookings.includes(:seat, :bus)
-      
-    
   end
 
   def destroy_reservations
-    # debugger
     @reservation = Booking.find(params[:bus_id])
-    if @reservation.destroy
-      redirect_to user_reservations_bus_bookings_path      , notice: 'Reservation was successfully deleted.'
-    else
-      render 
-    end
+    result = Bookings::DestroyBooking.new(@reservation).call
 
+    if result.success?
+      redirect_to user_reservations_bus_bookings_path, notice: result.message
+    else
+      redirect_to user_reservations_bus_bookings_path, alert: result.message
+    end
   end
+
   private
 
   def set_bus

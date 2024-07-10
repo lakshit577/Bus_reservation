@@ -1,89 +1,7 @@
-<!-- app/views/seats/new.html.erb -->
+<%= render 'new' %>
 
-<h1>Seats for <%= @bus.bus_name %></h1>
-<br>
-<%= form_with url: new_bus_seat_path(@bus), method: :get, local: true do |form| %>
-  <div class="form-group">
-    <h4><%= form.label :date, "Select Date" %></h4>
-    <%= form.date_field :date, value: @date, class: "form-control" %>
-  </div>
-  <br>
-  <%= form.submit "View Available Seats", class: "btn btn-primary" %>
-<% end %>
-<br>
-<%= form_with url: bus_bookings_path(@bus), method: :post, local: true, id: "seats-form" do %>
-  <div id="seats-container">
-    <% if @seats.any? && @date >= Date.today.strftime("%Y-%m-%d") %>
-      <div class="seats-grid">
-        <% @seats.in_groups_of(2, false) do |seat_row| %>
-          <div class="seat-row">
-            <% seat_row.compact.each do |seat| %>
-              <div class="seat-checkbox <%= 'unavailable' unless seat.available?(@date) %>">
-                <label>
-                  <%= check_box_tag "seats[]", seat.id, false, class: "seat-checkbox-input", data: { seat_id: seat.id, seat_number: seat.seat_number }, disabled: !seat.available?(@date) %>
-                  <span class="seat-number"><%= seat.seat_number %></span>
-                </label>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% else %>
-      <p>No seats available for the selected date.</p>
-    <% end %>
-  </div>
-  <br>
+<%= stylesheet_link_tag "seats", "data-turbo-track": "reload" %>
 
-  <%= hidden_field_tag :date, @date %> <!-- Hidden field for date -->
-  <div class="actions">
-    <%= submit_tag "Pay Amount for Seats", class: "btn btn-primary" %>
-  </div>
-<% end %>
-<br>
-
-<%= link_to "Back to Bus", bus_path(@bus), class: "btn btn-secondary" %>
-
-<style>
-  .seats-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .seat-row {
-    display: flex;
-    gap: 10px;
-  }
-
-  .seat-checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-    padding: 10px;
-    cursor: pointer;
-    background-color: green; /* Default background color for available seats */
-  }
-
-  .seat-checkbox.unavailable {
-    background-color: red; /* Red background color for unavailable seats */
-    cursor: not-allowed; /* Disable cursor for unavailable seats */
-  }
-
-  .seat-checkbox input[type="checkbox"] {
-    display: none;
-  }
-
-  .seat-checkbox label {
-    padding: 5px;
-    color: white; /* Default text color for seat numbers */
-  }
-
-  .seat-checkbox.checked {
-    background-color: red !important; /* Yellow background when checked */
-    color: black; /* Change text color when checked */
-  }
-</style>
 
 <script>
   function attachSeatCheckboxHandlers() {
@@ -96,18 +14,26 @@
           seatCheckbox.classList.toggle('checked', checkbox.checked);
         });
       }
-    });
+    }); 
   }
 
   document.addEventListener("DOMContentLoaded", function() {
     attachSeatCheckboxHandlers();
-
+    num =0
     document.querySelector('#seats-form').addEventListener('submit', function(event) {
       const checkedSeats = document.querySelectorAll('.seat-checkbox-input:checked');
       if (checkedSeats.length === 0) {
         event.preventDefault();
         alert("Please select at least one seat.");
       }
+      else{
+        var totalPrice = checkedSeats.length * <%= @bus.price_of_a_single_seat %>;
+
+      alert("Pay amount " + totalPrice + " Rs");
+
+           
+      }
+
     });
   });
 </script>

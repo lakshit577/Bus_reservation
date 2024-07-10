@@ -10,16 +10,17 @@
 <h1>New Bus</h1>
 
 <%= form_with(model: @bus, local: true, class: "needs-validation", novalidate: true) do |form| %>
-  <% if @bus.errors.any? %>
+    <% if @bus.errors.any? %>
     <div class="alert alert-danger" role="alert">
-      <h2><%= pluralize(@bus.errors.count, "error") %> prohibited this bus from being saved:</h2>
+      <h2 style="color:black"><%= pluralize(@bus.errors.count, "error") %> prohibited this bus from being saved:</h2>
       <ul>
         <% @bus.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+          <li style="color:black"><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
+
 
   <div class="container">
     <div class="row mb-3">
