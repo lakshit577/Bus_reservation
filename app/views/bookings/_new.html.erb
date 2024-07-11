@@ -2,15 +2,17 @@
 
 <h1>Seats for <%= @bus.bus_name %></h1>
 <br>
-<%= form_with url: new_bus_seat_path(@bus), method: :get, local: true do |form| %>
+<%= form_with url: new_bus_booking_path(@bus), method: :get, local: true do |form| %>
   <div class="form-group">
     <h4><%= form.label :date, "Select Date" %></h4>
-    <%= form.date_field :date, value: @date, class: "form-control" , min: Date.today%>
+    <%= form.date_field :date, value: @date, class: "form-control", min: Date.today %>
   </div>
   <br>
-  <%= form.submit "View Available Seats", class: "btn btn-primary" %>
+    <%= form.submit "View Available Seats", class: "btn btn-primary" %>
+
 <% end %>
 <br>
+
 <%= form_with url: bus_bookings_path(@bus), method: :post, local: true, id: "seats-form" do %>
   <div id="seats-container">
     <% if @seats.any? && @date >= Date.today.strftime("%Y-%m-%d") %>
@@ -23,7 +25,6 @@
                 <label>
                   <%= check_box_tag "seats[]", seat.id, false, class: "seat-checkbox-input", data: { seat_id: seat.id, seat_number: seat.seat_number }, disabled: !seat.available?(@date) %>
                   <span class="seat-number"><%= seat.seat_number %></span>
-                  <%#=@num=@num+1%>
                 </label>
               </div>
             <% end %>
@@ -31,7 +32,7 @@
         <% end %>
       </div>
     <% else %>
-      <p>No seats available for the selected date.</p>
+      <p>Please Select a valid Date !!!!!!!!!!!!!!!!!!!!!</p>
     <% end %>
   </div>
   <br>

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     # buses seats
     resources :seats ,only: :new
     # booking for seats in that bus
-    resources :bookings,only: :create do
+    resources :bookings,only: [:new, :create] do
       collection do
         get :reservations
         delete :destroy_reservations

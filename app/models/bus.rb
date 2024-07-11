@@ -6,15 +6,19 @@ class Bus < ApplicationRecord
   enum bus_type: [:Ac, :NonAc]
 
   validates :bus_name, presence: true
-  validates :bus_number, presence: true, format: { with: /\A\d{4}\z/, message: "must be of four-digit" }
+  validates :bus_number, presence: true, format: { with: /\A\d{4}\z/, message: "must be of four-digit" }, if: -> { bus_number.present? }
   validates :bus_type, presence: true
-  validates :price_of_a_single_seat, presence: true, numericality: { greater_than: 0 }
+  
+  validates :price_of_a_single_seat, presence: true
+  validates :price_of_a_single_seat, numericality: { greater_than: 0 }, if: -> { price_of_a_single_seat.present? }
+  validates :price_of_a_single_seat, numericality: { less_than: 10_000_000 }, if: -> { price_of_a_single_seat.present? }
+  #if: -> { price_of_a_single_seat.present? }
   validates :departure_time, presence: true
   validates :departure_location, presence: true
   validates :arrival_time, presence: true
   validates :arrival_location, presence: true
   validate :departure_and_arrival_locations_cannot_be_same
-  
+
   after_create :create_default_seats
 
   private
