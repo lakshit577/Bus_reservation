@@ -13,13 +13,15 @@ class BookingsController < ApplicationController
       begin
         parsed_date = Date.parse(@date)
         if parsed_date >= Date.today
-          @seats = @bus.seats.includes(:bookings).select { |seat| seat.available?(parsed_date) }
+          # debugger
+          @seats = @bus.seats
+          @availabe_seats = @bus.seats.includes(:bookings).select { |seat| seat.available?(parsed_date)}
+          @unavailabe_seats = @bus.seats.includes(:bookings).select { |seat| seat.available?(parsed_date)==false }
         else
           @seats = []
         end
       rescue ArgumentError
         @seats = []
-        flash[:error] = "Invalid date format. Please enter a valid date."
       end
     else
       @seats = []
@@ -78,4 +80,6 @@ class BookingsController < ApplicationController
   def booking_params
     params.require(:booking).permit(:booking_date, seats: [])
   end
+
+  
 end

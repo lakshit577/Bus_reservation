@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     # bus owner index page
     get 'bus_owner_index', on: :collection
     # buses seats
-    resources :seats ,only: :new
+    
     # booking for seats in that bus
     resources :bookings,only: [:new, :create] do
       collection do

@@ -74,3 +74,4 @@ gem 'bootstrap', '~> 5.3.3'
 
 
 # gem 'webpacker', '~> 5.x'
+gem 'turbolinks', '~> 5'

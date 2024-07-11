@@ -3,12 +3,12 @@ class ApplicationController < ActionController::Base
 
     before_action :configure_permitted_parameters, if: :devise_controller?
 
-    # rescue_from ActionController::RoutingError, with: :render_not_found
-    # rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+    rescue_from ActionController::RoutingError, with: :render_not_found
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
      
-    # def not_found
-    #   render file: "#{Rails.root}/public/404.html", status: :not_found, layout: false
-    # end
+    def not_found
+      render file: "#{Rails.root}/public/404.html", status: :not_found, layout: false
+    end
 
 
     protected
@@ -30,10 +30,10 @@ class ApplicationController < ActionController::Base
          end
          private
 
-        #  def render_not_found(exception)
-        #    logger.error exception.message
-        #    not_found
-        #  end
+         def render_not_found(exception)
+           logger.error exception.message
+           not_found
+         end
        end
 
 
