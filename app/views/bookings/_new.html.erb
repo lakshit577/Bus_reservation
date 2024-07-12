@@ -18,30 +18,21 @@
     <% if @seats.any? && @date >= Date.today.strftime("%Y-%m-%d") %>
       <div class="seats-grid">
         <%@num=0%>
-        <% @availabe_seats.in_groups_of(2, false) do |seat_row| %>
+        <% @seats.in_groups_of(2, false) do |seat_row| %>
           <div class="seat-row">
             <% seat_row.compact.each do |seat| %>
-              <div class="seat-checkbox <%= 'available' unless seat.available?(@date) %>">
+<div class="<%= @seat_ids.include?(seat.id) ? 'bg-danger' : 'bg-primary' %>" style="<%= @seat_ids.include?(seat.id) ? 'pointer-events: none;' : '' %>">
+              <div class="seat-checkbox <%= 'unavailable' unless seat.available?(@date) %>">
                 <label>
                   <%= check_box_tag "seats[]", seat.id, false, class: "seat-checkbox-input", data: { seat_id: seat.id, seat_number: seat.seat_number }, disabled: !seat.available?(@date) %>
                   <span class="seat-number"><%= seat.seat_number %></span>
                 </label>
               </div>
-            <% end %>
-          </div>
-        <% end %>
-        <% @unavailabe_seats.in_groups_of(2, false) do |seat_row| %>
-          <div class="seat-row">
-            <% seat_row.compact.each do |seat| %>
-              <div class="seat-checkbox <%= 'unavailable' if seat.available?(@date) %>">
-                <label>
-                  <%= check_box_tag "seats[]", seat.id, false, class: "seat-checkbox-input", data: { seat_id: seat.id, seat_number: seat.seat_number }, disabled: !seat.available?(@date) %>
-                  <span class="seat-number"><%= seat.seat_number %></span>  
-                </label>
               </div>
             <% end %>
           </div>
         <% end %>
+        
       </div>
     <% else %>
       <p>Please Select a valid Date !!!!!!!!!!!!!!!!!!!!!</p>

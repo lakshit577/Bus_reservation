@@ -15,8 +15,9 @@ class BookingsController < ApplicationController
         if parsed_date >= Date.today
           # debugger
           @seats = @bus.seats
-          @availabe_seats = @bus.seats.includes(:bookings).select { |seat| seat.available?(parsed_date)}
-          @unavailabe_seats = @bus.seats.includes(:bookings).select { |seat| seat.available?(parsed_date)==false }
+          unavailabe_seats = @bus.seats.includes(:bookings).select { |seat| seat.available?(parsed_date)==false }
+          @seat_ids =  unavailabe_seats.map(&:id)
+
         else
           @seats = []
         end

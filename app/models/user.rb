@@ -11,7 +11,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
          validates :name, presence: true
-  validates :contact, presence: true
+         validates :contact, presence: true
+         validates :contact,  format: { with: /\A\d{10}\z/, message: "should be a 10-digit non negative number" }, if: -> { contact.present? }
 end
 
 
