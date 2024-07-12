@@ -12,6 +12,9 @@ class Bus < ApplicationRecord
   validates :price_of_a_single_seat, presence: true
   validates :price_of_a_single_seat, numericality: { greater_than: 0 }, if: -> { price_of_a_single_seat.present? }
   validates :price_of_a_single_seat, numericality: { less_than: 10_000_000 }, if: -> { price_of_a_single_seat.present? }
+  validates :number_of_seats, presence: true
+  validates :number_of_seats, numericality: { greater_than: 0 }, if: -> { number_of_seats.present? }
+  validates :number_of_seats, numericality: { less_than: 101 }, if: -> { number_of_seats.present? }
   #if: -> { price_of_a_single_seat.present? }
   validates :departure_time, presence: true
   validates :departure_location, presence: true

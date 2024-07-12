@@ -52,21 +52,20 @@
       </div>
     </div>
 
-   <div class="row mb-3">
-  <div class="col-md-6">
-    <div class="form-group">
-      <%= form.label :departure_time, class: "form-label" %>
-      <%= form.time_select :departure_time, { default: { hour: 0, minute: 0 } }, class: "form-control" %>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :departure_time, class: "form-label" %>
+          <%= form.time_select :departure_time, { default: { hour: 0, minute: 0 } }, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :arrival_time, class: "form-label" %>
+          <%= form.time_select :arrival_time, { default: { hour: 0, minute: 0 } }, class: "form-control" %>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <%= form.label :arrival_time, class: "form-label" %>
-      <%= form.time_select :arrival_time, { default: { hour: 0, minute: 0 } }, class: "form-control" %>
-    </div>
-  </div>
-</div>
-
 
     <div class="row mb-3">
       <div class="col-md-6">
@@ -79,6 +78,15 @@
         <div class="form-group">
           <%= form.label :arrival_location, class: "form-label" %>
           <%= form.select :arrival_location, options_for_select(cities, @bus.arrival_location), {}, class: "form-select" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= form.label :number_of_seats, class: "form-label" %>
+          <%= form.number_field :number_of_seats, class: "form-control", placeholder: "Enter number of seats" %>
         </div>
       </div>
     </div>

@@ -49,6 +49,9 @@ class BookingsController < ApplicationController
     end
   end
 
+
+  
+
   def reservations
     @reservations = @bus.bookings.includes(:seat, :user)
   end

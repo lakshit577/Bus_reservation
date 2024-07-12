@@ -16,12 +16,13 @@
   border: 1px solid #ccc;
   padding: 10px;
   cursor: pointer;
-  background-color: green; /* Default background color for available seats */
+  background-color: transparent; /* Default background color for available seats */
 }
+
 
 .seat-checkbox.unavailable {
   background-color: red; /* Red background color for unavailable seats */
-  cursor: not-allowed; /* Disable cursor for unavailable seats */
+  pointer-events: none; 
 }
 
 .seat-checkbox input[type="checkbox"] {
