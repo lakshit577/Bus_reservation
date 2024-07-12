@@ -32,21 +32,22 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @date = params[:date] 
-
+    date = params[:date] 
     seat_ids = params[:seats] || []
-    if Date.parse(@date) >= Date.today
-    result = Bookings::CreateBooking.new(current_user, @bus, seat_ids, @date).call
     # debugger
-    
-      if result.success?
+    if Date.parse(date) >= Date.today
+      
+      if @bus.bookings.where(seat_id: seat_ids).present? && @bus.bookings.where(booking_date: date).present?
+        redirect_to bus_path(@bus), alert: "already booked"
+      elsif result = Bookings::CreateBooking.new(current_user, @bus, seat_ids, date).call
+        # debugger
         redirect_to bus_path(@bus), notice: result.message
+
       else
-        redirect_to new_bus_seat_path(@bus), alert: result.message
+        redirect_to bus_path(@bus), alert: result.message
       end
     else
-
-      redirect_to new_bus_seat_path(@bus), alert: "Invalid date"
+      redirect_to bus_path(@bus), alert: "Invalid date"
     end
   end
 

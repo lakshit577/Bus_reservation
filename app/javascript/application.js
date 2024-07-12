@@ -4,3 +4,4 @@ import "controllers"
 
 //= require popper
 //= require bootstrap-sprockets
+alert("dfjbnk")
