@@ -16,4 +16,3 @@ module BusOwnerAuthorization
       end
     end
   end
-  

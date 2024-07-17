@@ -1,8 +1,7 @@
 class BusesController < ApplicationController
-  
   before_action :authenticate_user!
   include BusOwnerAuthorization
-  
+
   def bus_owner_index
     @buses = current_user.buses
   end
@@ -14,7 +13,7 @@ class BusesController < ApplicationController
   def new
     @bus = Buses::NewBus.new(current_user).call
   end
-  
+
   def create
     result = Buses::CreateBus.new(current_user, permit_params).call
 
@@ -22,7 +21,6 @@ class BusesController < ApplicationController
       redirect_to bus_owner_home_path, notice: result.message
     else
       @bus = current_user.buses.create(permit_params)
-    
       render :new, status: :unprocessable_entity
     end
   end
@@ -35,22 +33,13 @@ class BusesController < ApplicationController
         format.json { head :no_content }
       end
     else
-
-        render new
+      render :new
     end
-
   end
 
- 
-
-  private 
-  
+  private
 
   def permit_params
-    params.require(:bus).permit(:bus_name, :bus_number, :bus_type, :price_of_a_single_seat, :departure_time, :departure_location, :arrival_time, :arrival_location,:number_of_seats )
+    params.require(:bus).permit(:bus_name, :bus_number, :bus_type, :price_of_a_single_seat, :departure_time, :departure_location, :arrival_time, :arrival_location, :number_of_seats)
   end
-
-  
 end
-
-

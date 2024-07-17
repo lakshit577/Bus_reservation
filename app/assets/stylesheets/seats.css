@@ -38,3 +38,6 @@
   background-color: blue !important; /* Change background when checked */
   color: black; /* Change text color when checked */
 }
+.checked-checkbox {
+  background-color: blue; /* Change to any desired style */
+}

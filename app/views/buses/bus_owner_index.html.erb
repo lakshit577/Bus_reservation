@@ -47,4 +47,6 @@
 <%else%>
 <h1> <%=current_user.name%> has no buses <h1>
 <h3> add your buses ............ <h3>
+  <%= link_to "Back to home", bus_owner_home_path, class: "btn btn-secondary" %>
+
 <%end%>

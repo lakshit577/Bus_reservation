@@ -1,39 +1,38 @@
 <%= render 'new' %>
 
+<script >
+  function validateSeatsSelection() {
+    var checkboxes = document.querySelectorAll('.seat-checkbox-input');
+    var checked = false;
 
-
-
-<script>
-  function attachSeatCheckboxHandlers() {
-    document.querySelectorAll('.seat-checkbox').forEach(function(seatCheckbox) {
-      if (!seatCheckbox.classList.contains('unavailable')) {
-        seatCheckbox.addEventListener('click', function(event) {
-          event.preventDefault();
-          const checkbox = seatCheckbox.querySelector('input[type="checkbox"]');
-          checkbox.checked = !checkbox.checked;
-          seatCheckbox.classList.toggle('checked', checkbox.checked);
-        });
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked) {
+        checked = true;
       }
-    }); 
+    });
+
+    if (!checked) {
+      alert("Please select at least one seat!");
+      return false; // Prevent form submission
+    }
+    else{
+      // debugger
+      location.reload()
+      alert("Seats are Booked Successfully")
+      return true; // Allow form submission
+    }
+
   }
 
-  document.addEventListener("DOMContentLoaded", function() {
-    attachSeatCheckboxHandlers();
-    num =0
-    document.querySelector('#seats-form').addEventListener('submit', function(event) {
-      const checkedSeats = document.querySelectorAll('.seat-checkbox-input:checked');
-      if (checkedSeats.length === 0) {
-        event.preventDefault();
-        alert("Please select at least one seat.");
-      }
-      else{
-        var totalPrice = checkedSeats.length * <%= @bus.price_of_a_single_seat %>;
+  function colorChange(event) {
+  const checkbox = event.target;
+  const seatDiv = checkbox.closest('.seat-checkbox');
 
-      alert("Pay amount " + totalPrice + " Rs");
-
-           
-      }
-
-    });
-  });
+  if (checkbox.checked) {
+    
+    seatDiv.style.backgroundColor = 'blue';  // Add blue background class
+  } else {
+    seatDiv.style.backgroundColor = '';  // Remove blue background class
+  }
+}
 </script>

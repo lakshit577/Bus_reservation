@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <strong><%= link_to 'Bus Reservation System', root_path, class: 'nav-link mx-3' %></strong>
+<%= link_to root_path, class: 'nav-link mx-3' do %>
+  <%= image_tag 'bus_logo.png', alt: 'Bus Home', class: 'img-fluid', size: '40x40', style: 'filter: invert(100%);' %>
+<% end %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -37,7 +39,7 @@
     <ul class="navbar-nav">
       <li class="nav-item">
         <% if user_signed_in? %>
-          <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+          <%= button_to "Logout #{current_user.name}", destroy_user_session_path, method: :delete, class: 'nav-link' %>
         <% end %>
       </li>
     </ul>
