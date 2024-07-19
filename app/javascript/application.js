@@ -5,9 +5,9 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "bootstrap"
 
-// import { Application } from "@hotwired/stimulus"
-// import { definitionsFromContext } from "stimulus/webpack-helpers"
-
-// const application = Application.start()
-// const context = require.context("controllers", true, /\.js$/)
-// application.load(definitionsFromContext(context))
+document.addEventListener("turbo:load", () => {
+    const modalElement = document.getElementById('seatsModal');
+    if (modalElement) {
+      new bootstrap.Modal(modalElement);
+    }
+  });

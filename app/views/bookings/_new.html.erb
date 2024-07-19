@@ -1,7 +1,7 @@
 <h1>Seats for <%= @bus.bus_name %></h1>
 
 <br>
-<%= form_with url: new_bus_booking_path(@bus), method: :get, local: true do |form| %>
+<%= form_with url: new_bus_booking_path(@bus), method: :get, local: true, id: "date-form" do |form| %>
   <div class="form-group">
     <h4><%= form.label :date, "Select Date" %></h4>
     <%= form.date_field :date, value: @date, class: "form-control", min: Date.today %>
@@ -12,45 +12,24 @@
 
 <br>
 
-<div class="modal fade" id="seatsModal" tabindex="-1" aria-labelledby="seatsModalLabel" aria-hidden="true" data-controller="hello">
+<div class="modal fade" id="seatsModal" tabindex="-1" aria-labelledby="seatsModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+    <div class="modal-content" id="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="seatsModalLabel">Select Seats</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <%= turbo_frame_tag "modal" do %>
-          <%= form_with url: bus_bookings_path(@bus), method: :post, local: true, id: "seats-form" do |form| %>
+          <%= form_with url: bus_bookings_path(@bus), data: { turbo_frame: "_top" }, method: :post, id: "seats-form" do |form| %>
             <div id="seats-container">
-              <% if @seats.any? && @date >= Date.today.strftime("%Y-%m-%d") %>
-                <div class="seats-grid">
-                  <% @seats.in_groups_of(2, false) do |seat_row| %>
-                    <div class="seat-row">
-                      <% seat_row.compact.each do |seat| %>
-                        <div class="<%= @seat_ids.include?(seat.id) ? 'bg-danger' : 'bg-success' %>" style="<%= @seat_ids.include?(seat.id) ? 'pointer-events: none;' : '' %>">
-                          <div class="seat-checkbox <%= 'unavailable' unless seat.available?(@date) %>">
-                            <label>
-                              <%= check_box_tag "seats[]", seat.id, false, class: "seat-checkbox-input", data: { seat_id: seat.id, seat_number: seat.seat_number }, disabled: !seat.available?(@date), onchange: "colorChange(event);" %>
-                              <span class="seat-number"><%= seat.seat_number %></span>
-                            </label>
-                          </div>
-                        </div>
-                      <% end %>
-                    </div>
-                  <% end %>
-                </div>
-              <% else %>
-                <p class="text-black">Please Select a valid Date !!!!!!!!!!!!!!!!!!!!!</p>
-              <% end %>
+              <%= render_seats(@seats, @date) %>
             </div>
             <br>
             <%= hidden_field_tag :date, @date %>
-            
             <% if @date.present? %>
               <div class="actions">
                 <%= turbo_frame_tag "seats-form" do %>
-                  <%= submit_tag "Pay Amount for Seats", class: "btn btn-primary", onclick: "return validateSeatsSelection();" %>
+                  <%= submit_tag "Pay Amount for Seats", class: "btn btn-primary", data: { turbo_frame: "flash" }, onclick: "return validateSeatsSelection();" %>
                 <% end %>
               </div>
             <% end %>
@@ -59,15 +38,10 @@
         <br>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <%= link_to "cancel", new_bus_booking_path(@bus), class: "btn btn-secondary" %>
       </div>
     </div>
   </div>
 </div>
 
 <%= link_to "Back to Bus", bus_path(@bus), class: "btn btn-secondary" %>
-
-
- 
-
-

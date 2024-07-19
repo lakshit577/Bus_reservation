@@ -1,38 +1,14 @@
 <%= render 'new' %>
-
-<script >
-  function validateSeatsSelection() {
-    var checkboxes = document.querySelectorAll('.seat-checkbox-input');
-    var checked = false;
-
-    checkboxes.forEach(function(checkbox) {
-      if (checkbox.checked) {
-        checked = true;
-      }
-    });
-
-    if (!checked) {
-      alert("Please select at least one seat!");
-      return false; // Prevent form submission
-    }
-    else{
-      // debugger
-      location.reload()
-      alert("Seats are Booked Successfully")
-      return true; // Allow form submission
-    }
-
-  }
-
+<script> 
   function colorChange(event) {
   const checkbox = event.target;
   const seatDiv = checkbox.closest('.seat-checkbox');
 
   if (checkbox.checked) {
     
-    seatDiv.style.backgroundColor = 'blue';  // Add blue background class
+    seatDiv.style.backgroundColor = 'violet'; 
   } else {
-    seatDiv.style.backgroundColor = '';  // Remove blue background class
+    seatDiv.style.backgroundColor = ''; 
   }
 }
 </script>

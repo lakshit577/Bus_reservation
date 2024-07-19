@@ -6,7 +6,6 @@ class Result
       @success = success
       @message = message
     end
-  
     def success?
       @success
     end

@@ -7,45 +7,38 @@ class BookingsController < ApplicationController
     @date = params[:date]
 
     if @date.present?
-      begin
-        parsed_date = Date.parse(@date)
-        if parsed_date >= Date.today
-          @seats = @bus.seats
-          unavailable_seats = @bus.seats.includes(:bookings).select { |seat| !seat.available?(parsed_date) }
-          @seat_ids = unavailable_seats.map(&:id)
-        else
-          @seats = []
-        end
-      rescue ArgumentError
+      parsed_date = Date.parse(@date)
+      if parsed_date >= Date.today
+        @seats = @bus.seats
+        unavailable_seats = @bus.seats.joins(:bookings).where(bookings: { booking_date: parsed_date })  
+        @seat_ids = unavailable_seats.map(&:id)
+      else
         @seats = []
       end
     else
       @seats = []
     end
-  rescue ActiveRecord::RecordNotFound
-    render file: "#{Rails.root}/public/404.html", status: :not_found
   end
 
   def create
-    date = params[:date] 
-    seat_ids = params[:seats] || []
-
-    if Date.parse(date) >= Date.today
-      if @bus.bookings.where(seat_id: seat_ids, booking_date: date).present?
-        redirect_to bus_path(@bus), alert: "already booked"
-      elsif result = Bookings::CreateBooking.new(current_user, @bus, seat_ids, date).call
-        respond_to do |format|
-          format.turbo_stream {
-            redirect_to bus_path(@bus), notice: "Booking created successfully"
-          }
+    date = params[:date]
+    seat_ids = params[:seats]
+    result = Bookings::CreateBooking.new(current_user, @bus, seat_ids, date).call
+  
+    respond_to do |format|
+      format.turbo_stream do
+        if result.success?
+          flash.now[:notice] = result.message
+          render turbo_stream: turbo_stream.prepend("modal-content", partial: "bookings/flash_message")
+          
+        else
+          flash.now[:alert] = result.message
+          render turbo_stream: turbo_stream.prepend("modal-content", partial: "bookings/flash_message"), status: :unprocessable_entity
         end
-      else
-        redirect_to bus_path(@bus), alert: result.message
       end
-    else
-      redirect_to bus_path(@bus), alert: "Invalid date"
     end
   end
+  
 
   def reservations
     @reservations = @bus.bookings.includes(:seat, :user)
@@ -61,6 +54,7 @@ class BookingsController < ApplicationController
     result = Bookings::DestroyBooking.new(@reservation).call
 
     if result.success?
+     
       redirect_to user_reservations_bus_bookings_path, notice: result.message
     else
       redirect_to user_reservations_bus_bookings_path, alert: result.message

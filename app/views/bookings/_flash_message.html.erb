@@ -1,0 +1,6 @@
+<% if flash[:notice] %>
+  <div class="alert alert-primary" style="color: black;"><%= flash[:notice] %></div>
+<% elsif flash[:alert] %>
+  <div class="alert alert-danger" style="color: black;"><%= flash[:alert] %></div>
+<% end %>
+<%= link_to "close" , new_bus_booking_path(@bus)%>

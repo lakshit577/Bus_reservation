@@ -10,3 +10,5 @@ class Seat < ApplicationRecord
     bookings.none? { |booking| booking.booking_date == date }
   end
 end
+
+

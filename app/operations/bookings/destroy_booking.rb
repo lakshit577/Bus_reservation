@@ -6,8 +6,8 @@ module Bookings
       end
   
       def call
-        if @booking.destroy
-          Result.new(success: true, message: 'Reservation was successfully deleted.')
+        if @booking.destroy 
+          Result.new(success: true , message: 'Reservation was successfully deleted.')
         else
           Result.new(success: false, message: 'Failed to delete the reservation.')
         end

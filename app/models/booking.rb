@@ -3,13 +3,13 @@ class Booking < ApplicationRecord
   belongs_to :seat
   belongs_to :bus
 
-  # validates :booking_date, presence: true
-  # validate :validate_booking_date_and_seat, on: :create
+  validate :booking_date_cannot_be_in_the_past
+
   private
 
-  # def validate_booking_date_and_seat
-  #   if Booking.exists?(seat_id: seat_id, booking_date: booking_date)
-  #     errors.add(:base, "This seat has already been booked for the selected date.")
-  #   end
-  # end
+  def booking_date_cannot_be_in_the_past
+    if booking_date.present? && booking_date < Date.today
+      errors.add(:booking_date, "can't be in the past")
+    end
+  end
 end
