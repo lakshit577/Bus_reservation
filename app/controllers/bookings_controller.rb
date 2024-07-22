@@ -29,8 +29,7 @@ class BookingsController < ApplicationController
       format.turbo_stream do
         if result.success?
           flash.now[:notice] = result.message
-          render turbo_stream: turbo_stream.prepend("modal-content", partial: "bookings/flash_message")
-          
+          render turbo_stream: turbo_stream.prepend("modal-content", partial: "bookings/flash_message")          
         else
           flash.now[:alert] = result.message
           render turbo_stream: turbo_stream.prepend("modal-content", partial: "bookings/flash_message"), status: :unprocessable_entity

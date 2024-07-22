@@ -18,9 +18,13 @@ module Bookings
       else
         @seat_ids.each do |seat_id|
           Booking.create(user: @user, seat_id: seat_id, booking_date: @date, bus: @bus)
+          # debugger
+          PaymentMailer.payment_confirmation(@user,Booking.last).deliver_now
         end
         Result.new(success: true, message: "Booking successful!")
       end
     end
   end
 end
+
+

@@ -11,10 +11,11 @@ module BookingsHelper
             data: { 
               seat_id: seat.id, 
               seat_number: seat.seat_number, 
-              target: "seat-selection.seatCheckbox" 
+              target: "seat-selection.seatCheckbox",
+              controller:"hello",
+              action: "click->hello#colorChange"
             }, 
             disabled: !seat.available?(date), 
-            onchange: "colorChange(event);"
           ) +
           content_tag(:span, seat.seat_number, class: "seat-number")
         end
